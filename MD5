@@ -1,0 +1,11 @@
+1377fbd1527d389498033a1f94855017 *DESCRIPTION
+255b5651e1db2399e4a8cc97938da3fa *NAMESPACE
+1fad2bab134f8f83434d6d3bfc0f1a00 *NEWS.md
+e520e515ac8ba2049b9db17a6a089fd9 *R/fix_dates.R
+56cfb8f68419b4111f1b40a53332d3ed *README.md
+e925ee4523596f0ea8d1b40158f69a7a *man/figures/sticker.pdf
+255446126e9f4ed936bbf45ac444f09d *man/figures/sticker.png
+d6ed193f18ebd2a66835b6e632706014 *man/figures/sticker.svg
+4b2fd41ab6958691d28f1e3dfe0bb722 *man/fix_dates.Rd
+ce970a0f7b8248779a1b68db21c45e5a *tests/testthat.R
+68711357e0faf3c0552f98ff3bbbb415 *tests/testthat/test_fix_dates.R
