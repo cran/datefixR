@@ -4,7 +4,7 @@
 \alias{fix_dates}
 \title{Clean up messy date columns}
 \usage{
-fix_dates(df, col.names, day.impute = 1, month.impute = 7)
+fix_dates(df, col.names, day.impute = 1, month.impute = 7, id = NULL)
 }
 \arguments{
 \item{df}{A \code{dataframe} object with messy date column(s)}
@@ -16,6 +16,9 @@ defaults to 1.}
 
 \item{month.impute}{Integer. Month to be be imputed if not available.
 Defaults to 7 (July)}
+
+\item{id}{Name of column containing row IDs. By default, the first column is
+assumed.}
 }
 \value{
 A \code{dataframe} object. Selected columns are of type \code{Date}
@@ -23,7 +26,7 @@ A \code{dataframe} object. Selected columns are of type \code{Date}
 \description{
 Cleans up a \code{dataframe} object which has date columns
 entered via a free-text box (possibly by different users) and are therefore
-in a non-standardised format. Supports numerous seperators including /,- or
+in a non-standardized format. Supports numerous separators including /,- or
 space. Supports all-numeric, abbreviation or long-hand month notation. Where
 day of the month has not been supplied, the first day of the month is
 imputed. When day, month and year is given either DMY or YMD is assumed; the
@@ -42,4 +45,8 @@ bad.dates <- data.frame(id = seq(5),
                                             "2012-08",
                                             "jan 2020"))
 fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
+}
+\seealso{
+\link{fix_date} Similar to \code{fix_dates()} except can only be
+applied to character obkects.
 }

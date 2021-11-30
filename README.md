@@ -13,6 +13,7 @@ status](https://github.com/nathansam/datefixR/workflows/R-CMD-check/badge.svg)](
 language](https://img.shields.io/github/languages/top/nathansam/datefixR)
 [![License:
 GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/licenses/GPL-3.0)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)
 <!-- badges: end -->
 
 `datefixR` is designed to standardize messy date data, such as dates
@@ -25,11 +26,26 @@ were written in many different formats e.g 01-jan-15, 2015 04 02,
 
 ## Installation instructions
 
-The development version of `datefixR` can be installed via
+`datefixR` is now available on CRAN.
 
 ``` r
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("nathansam/fixdateR")
+install.packages("datefixR")
+```
+
+The most up-to-date (hopefully) stable version of `datefixR` can be
+installed via
+
+``` r
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("nathansam/fixdateR")
+```
+
+If you wish to live on the cutting edge of `datefixR` development, then
+the development version can be installed via
+
+``` r
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("nathansam/datefixR", "devel")
 ```
 
 ### Usage
@@ -81,3 +97,29 @@ call.
 The package is written solely in R and seems fast enough for my current
 use cases (a few hundred rows). However, I may convert the core for loop
 to C++ in the future if I (or others) need it to be faster.
+
+### Citation
+
+If you use this package in your research, please consider citing
+`datefixR`! An up-to-date citation can be obtained by running
+
+``` r
+citation("datefixR")
+#> 
+#> To cite datefixR in publications use:
+#> 
+#>   Constantine-Cooke, Nathan 2021. datefixR: Fix Really Messy Dates in
+#>   R. R package version 0.1.1.9000. DOI: 10.5281/zenodo.5655311.
+#>   https://CRAN.R-project.org/package=datefixR
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {{datefixR}: Fix Really Messy Dates in {R}},
+#>     author = {Nathan Constantine-Cooke},
+#>     year = {2021},
+#>     url = {https://CRAN.R-project.org/package=datefixR},
+#>     doi = {10.5281/zenodo.5655311},
+#>     note = {R package version 0.1.1.9000},
+#>   }
+```
