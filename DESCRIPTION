@@ -1,6 +1,6 @@
 Package: datefixR
 Title: Fix Really Messy Dates
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: person("Nathan",
                   "Constantine-Cooke",
                   email = "nathan.constantine-cooke@ed.ac.uk",
@@ -21,10 +21,10 @@ BugReports: https://github.com/nathansam/datefixR/issues
 Suggests: rmarkdown, knitr, testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-NeedsCompilation: no
-Packaged: 2021-11-30 22:19:22 UTC; s1961592
+NeedsCompilation: yes
+Packaged: 2022-01-03 11:39:42 UTC; s1961592
 Author: Nathan Constantine-Cooke [aut, cre]
     (<https://orcid.org/0000-0002-4437-8713>)
 Maintainer: Nathan Constantine-Cooke <nathan.constantine-cooke@ed.ac.uk>
 Repository: CRAN
-Date/Publication: 2021-11-30 22:30:02 UTC
+Date/Publication: 2022-01-03 12:00:02 UTC
