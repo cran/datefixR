@@ -14,7 +14,8 @@ fix_dates(
 )
 }
 \arguments{
-\item{df}{A \code{dataframe} object with messy date column(s)}
+\item{df}{A \code{dataframe} or \code{tibble} object with messy date
+column(s)}
 
 \item{col.names}{Character vector of names of columns of messy date data}
 
@@ -38,7 +39,8 @@ been given first, then YMD is assumed for the subject (format argument is
 not used for these observations)}
 }
 \value{
-A \code{dataframe} object. Selected columns are of type \code{Date}
+A \code{dataframe} or \code{tibble} object. Dependent on the type of
+\code{df}. Selected columns are of type \code{Date}
 }
 \description{
 Cleans up a \code{dataframe} object which has date columns
@@ -50,17 +52,23 @@ imputed. Either DMY or YMD is assumed by default. However, the US system of
 MDY is supported via the \code{format} argument.
 }
 \examples{
-bad.dates <- data.frame(id = seq(5),
-                        some.dates = c("02/05/92",
-                                       "01-04-2020",
-                                       "1996/05/01",
-                                       "2020-05-01",
-                                       "02-04-96"),
-                        some.more.dates = c("2015",
-                                            "02/05/00",
-                                            "05/1990",
-                                            "2012-08",
-                                            "jan 2020"))
+bad.dates <- data.frame(
+  id = seq(5),
+  some.dates = c(
+    "02/05/92",
+    "01-04-2020",
+    "1996/05/01",
+    "2020-05-01",
+    "02-04-96"
+  ),
+  some.more.dates = c(
+    "2015",
+    "02/05/00",
+    "05/1990",
+    "2012-08",
+    "jan 2020"
+  )
+)
 fixed.df <- fix_dates(bad.dates, c("some.dates", "some.more.dates"))
 }
 \seealso{
