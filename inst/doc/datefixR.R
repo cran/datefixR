@@ -7,61 +7,58 @@ knitr::opts_chunk$set(
 ## ----setup--------------------------------------------------------------------
 library(datefixR)
 
-## ---- echo = FALSE------------------------------------------------------------
-bad.dates <- data.frame(id = seq(5),
-                        some.dates = c("02/05/92",
-                                       "01-04-2020",
-                                       "1996/05/01",
-                                       "2020-05-01",
-                                       "02-04-96"),
-                        some.more.dates = c("01 03 2015",
-                                            "02/05/00",
-                                            "01/05/1990",
-                                            "03-Dec-2012",
-                                            "02 April 2020"))
+## ---- echo = TRUE-------------------------------------------------------------
+bad.dates <- data.frame(
+  id = seq(5),
+  some.dates = c(
+    "02/05/92",
+    "01-04-2020",
+    "1996/05/01",
+    "2020-05-01",
+    "02-04-96"
+  ),
+  some.more.dates = c(
+    "01 03 2015",
+    "02/05/00",
+    "01/05/1990",
+    "03-Dec-2012",
+    "02 April 2020"
+  )
+)
 knitr::kable(bad.dates)
 
 ## -----------------------------------------------------------------------------
-fixed.dates <- fix_dates(bad.dates,
-                         c("some.dates", "some.more.dates"))
+fixed.dates <- fix_date_df(
+  bad.dates,
+  c("some.dates", "some.more.dates")
+)
 knitr::kable(fixed.dates)
 
 ## -----------------------------------------------------------------------------
-fix_date("01 02 2014")
+fix_date_char("01 02 2014")
 
 ## -----------------------------------------------------------------------------
-fix_date("01 02 2014", format = "mdy")
-
-## ---- echo = FALSE------------------------------------------------------------
-impute.dates <- data.frame(id = 1,
-                        some.date = "1992")
-knitr::kable(impute.dates)
+fix_date_char("01 02 2014", format = "mdy")
 
 ## -----------------------------------------------------------------------------
-imputed.dates <- fix_dates(impute.dates, "some.date")
-knitr::kable(imputed.dates)
+fix_date_char("1992")
 
 ## -----------------------------------------------------------------------------
-imputed.dates <- fix_dates(impute.dates,
-                           "some.date",
-                           day.impute = 1,
-                           month.impute = 1)
-knitr::kable(imputed.dates)
+fix_date_char("1992", day.impute = 1, month.impute = 1)
 
 ## -----------------------------------------------------------------------------
-imputed.dates <- fix_dates(impute.dates,
-                           "some.date",
-                           month.impute = NA)
-knitr::kable(imputed.dates)
+fix_date_char("1992", month.impute = NA)
 
 ## ---- eval = FALSE------------------------------------------------------------
-#  imputed.dates <- fix_dates(impute.dates,
-#                             "some.date",
-#                             month.impute = NULL)
+#  fix_date_char("1992", month.impute = NULL)
 #  # ERROR
 
 ## -----------------------------------------------------------------------------
-fix_date("2014", day.impute = 1, month.impute = 1)
+example.df <- data.frame(
+  id = seq(1, 3),
+  some.dates = c("2014", "April 1990", "Mar 19")
+)
+fix_date_df(example.df, "some.dates", day.impute = 1, month.impute = 1)
 
 ## -----------------------------------------------------------------------------
 citation("datefixR")

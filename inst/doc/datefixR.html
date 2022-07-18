@@ -336,13 +336,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datefixR)</span></code></pre></div>
 <p>This vignette describes the functionality of <code>datefixR</code> in
-more detail than the <a href="https://github.com/nathansam/datefixR">README</a>.
+more detail than the <a href="https://github.com/ropensci/datefixR">README</a>.
 <code>DatefixR</code> is a lightweight package consisting of a two
-user-accessible functions, <code>fix_date()</code> and
-<code>fix_dates()</code>, which converts dates written in different
+user-accessible functions, <code>fix_date_char()</code> and
+<code>fix_date_df()</code>, which converts dates written in different
 formats into R’s built-in <code>Date</code> class. The former is
-designed to modify single character objects whilst the latter is
-intended for modifying columns of a data frame (or tibble).</p>
+designed to modify character vectors whilst the latter is intended for
+modifying columns of a data frame (or tibble).</p>
 <p>Practically, this package is most useful when handling date data
 which has been supplied via text boxes (instead of a date-specific input
 with a consistent date format). However, this package may also be useful
@@ -354,6 +354,24 @@ to validate the format of date data (see <a href="#date-and-month-imputation">da
 <p>Firstly, we will demonstrate date standardization without imputation.
 We consider a data frame with two columns of dates in differing formats
 with no missing data.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bad.dates <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">seq</span>(<span class="dv">5</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">some.dates =</span> <span class="fu">c</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;02/05/92&quot;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;01-04-2020&quot;</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;1996/05/01&quot;</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;2020-05-01&quot;</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;02-04-96&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">some.more.dates =</span> <span class="fu">c</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;01 03 2015&quot;</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;02/05/00&quot;</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;01/05/1990&quot;</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;03-Dec-2012&quot;</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;02 April 2020&quot;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(bad.dates)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -390,7 +408,7 @@ with no missing data.</p>
 </tr>
 </tbody>
 </table>
-<p><code>fix_dates()</code> requires two arguments, <code>df</code>, a
+<p><code>fix_date_df()</code> requires two arguments, <code>df</code>, a
 data frame (or tibble) object and <code>col.names</code>, a character
 vector containing the names of columns to be standardized. By default,
 the first column of the data frame is assumed to contain row IDs. These
@@ -399,9 +417,11 @@ source of the error. The ID column can also be manually provided via the
 <code>id</code> argument.</p>
 <p>The output from this function is a data frame object with the
 selected date columns now belonging to the <code>Date</code> class.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fixed.dates <span class="ot">&lt;-</span> <span class="fu">fix_dates</span>(bad.dates,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">c</span>(<span class="st">&quot;some.dates&quot;</span>, <span class="st">&quot;some.more.dates&quot;</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(fixed.dates)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fixed.dates <span class="ot">&lt;-</span> <span class="fu">fix_date_df</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  bad.dates,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;some.dates&quot;</span>, <span class="st">&quot;some.more.dates&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(fixed.dates)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -440,55 +460,25 @@ selected date columns now belonging to the <code>Date</code> class.</p>
 </table>
 <p><code>datefixR</code> can handle many different formats including -,
 /, or white space separation, year-first or day-first, and month
-supplied as a number, an abbreviation or full length name. The most
-notable current omission is the month-first format of dates commonly
-seen in the US, however this format may be supported in the future.</p>
-<p><code>fix_date()</code> is similar to <code>fix_dates()</code> but
-only applies to a single character object.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date</span>(<span class="st">&quot;01 02 2014&quot;</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2014-02-01&quot;</span></span></code></pre></div>
+supplied as a number, an abbreviation or full length name.</p>
+<p><code>fix_date_char()</code> is similar to <code>fix_date_df()</code>
+but only applies to a single character object.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;01 02 2014&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2014-02-01&quot;</span></span></code></pre></div>
 <p>Functions in <code>datefixR</code> assume day-first instead of
 month-first when day, month, and year are all given (unless year is
 given first). However this behavior can be modified by passing
 <code>format = &quot;mdy&quot;</code> to function calls.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date</span>(<span class="st">&quot;01 02 2014&quot;</span>, <span class="at">format =</span> <span class="st">&quot;mdy&quot;</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2014-01-02&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;01 02 2014&quot;</span>, <span class="at">format =</span> <span class="st">&quot;mdy&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2014-01-02&quot;</span></span></code></pre></div>
 </div>
 <div id="date-and-month-imputation" class="section level3">
 <h3>Date and month imputation</h3>
 <p>By default, <code>datefixR</code> imputes missing months as July, and
-missing days of the month as the first day. As such,</p>
-<table>
-<thead>
-<tr class="header">
-<th align="right">id</th>
-<th align="left">some.date</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="left">1992</td>
-</tr>
-</tbody>
-</table>
-<p>converts to</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>imputed.dates <span class="ot">&lt;-</span> <span class="fu">fix_dates</span>(impute.dates, <span class="st">&quot;some.date&quot;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(imputed.dates)</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="right">id</th>
-<th align="left">some.date</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="left">1992-07-01</td>
-</tr>
-</tbody>
-</table>
+missing days of the month as the first day. As such, “1992” converts
+to</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1992-07-01&quot;</span></span></code></pre></div>
 <p>The argument for defaulting to July is 1-2 July is halfway through
 the year (on a non leap year). Therefore assuming the year supplied is
 indeed correct, you are only a maximum of 6 months off from the true
@@ -497,60 +487,32 @@ date. However, this behavior can be changed by supplying the
 integer corresponding to the desired day and month. For example,
 <code>day.impute = 1</code> and <code>month.impute = 1</code> results in
 the first day of January being imputed instead.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>imputed.dates <span class="ot">&lt;-</span> <span class="fu">fix_dates</span>(impute.dates,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;some.date&quot;</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">day.impute =</span> <span class="dv">1</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">month.impute =</span> <span class="dv">1</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(imputed.dates)</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="right">id</th>
-<th align="left">some.date</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="left">1992-01-01</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">day.impute =</span> <span class="dv">1</span>, <span class="at">month.impute =</span> <span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1992-01-01&quot;</span></span></code></pre></div>
 <p>The imputation mechanism can also be modified to impute
 <code>NA</code> if a month or day is missing by setting
 <code>day.impute</code> or <code>month.impute</code> to <code>NA</code>.
 This will also result in a warning being raised.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>imputed.dates <span class="ot">&lt;-</span> <span class="fu">fix_dates</span>(impute.dates,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;some.date&quot;</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">month.impute =</span> <span class="cn">NA</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: NA imputed for subject 1 (date: 1992)</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(imputed.dates)</span></code></pre></div>
-<table>
-<thead>
-<tr class="header">
-<th align="right">id</th>
-<th align="left">some.date</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="left">NA</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">month.impute =</span> <span class="cn">NA</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: NA imputed (date: 1992)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span></code></pre></div>
 <p>Finally, imputation can be prevented by setting
 <code>day.impute</code> or <code>month.impute</code> to
 <code>NULL</code>. This will result in an error being raised if the day
 or month are missing respectively.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>imputed.dates <span class="ot">&lt;-</span> <span class="fu">fix_dates</span>(impute.dates,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;some.date&quot;</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">month.impute =</span> <span class="cn">NULL</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ERROR</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">month.impute =</span> <span class="cn">NULL</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ERROR</span></span></code></pre></div>
 <p><code>day.impute</code> and <code>month.impute</code> can also be
-passed to <code>fix_date()</code> for similar functionality.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date</span>(<span class="st">&quot;2014&quot;</span>, <span class="at">day.impute =</span> <span class="dv">1</span>, <span class="at">month.impute =</span> <span class="dv">1</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2014-01-01&quot;</span></span></code></pre></div>
+passed to <code>fix_date_df()</code> for similar functionality.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>example.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">some.dates =</span> <span class="fu">c</span>(<span class="st">&quot;2014&quot;</span>, <span class="st">&quot;April 1990&quot;</span>, <span class="st">&quot;Mar 19&quot;</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_df</span>(example.df, <span class="st">&quot;some.dates&quot;</span>, <span class="at">day.impute =</span> <span class="dv">1</span>, <span class="at">month.impute =</span> <span class="dv">1</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id some.dates</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1 2014-01-01</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2 1990-04-01</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3 2019-03-01</span></span></code></pre></div>
 </div>
 </div>
 <div id="citation" class="section level2">
@@ -558,23 +520,23 @@ passed to <code>fix_date()</code> for similar functionality.</p>
 <p>If you use this package in your research, please consider citing
 <code>datefixR</code>. An up-to-date citation can be obtained by
 running</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;datefixR&quot;</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; To cite datefixR in publications use:</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Constantine-Cooke, Nathan . datefixR: Fix Really Messy Dates in R. R</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   package version 0.1.6. DOI: 10.5281/zenodo.5655311.</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   https://CRAN.R-project.org/package=datefixR</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     title = {{datefixR}: Fix Really Messy Dates in {R}},</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     author = {Nathan Constantine-Cooke},</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=datefixR},</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     doi = {10.5281/zenodo.5655311},</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 0.1.6},</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;datefixR&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; To cite datefixR in publications use:</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Constantine-Cooke, Nathan . datefixR: Fix Really Messy Dates in R. R</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   package version 1.0.0. DOI: 10.5281/zenodo.5655311.</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   https://CRAN.R-project.org/package=datefixR</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     title = {{datefixR}: Standardize Dates in Different Formats or with Missing Data},</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     author = {Nathan Constantine-Cooke},</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=datefixR},</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     doi = {10.5281/zenodo.5655311},</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 1.0.0},</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 
 
