@@ -83,12 +83,6 @@
 #' @noRd
 .convert_text_month <- function(date) {
   date <- tolower(date)
-  # Handle special case of sept abbrv.
-  date <- gsub(
-    pattern = "sept",
-    replacement = "09",
-    x = date
-  )
 
   for (i in 1:12) {
     if (i < 10) {
@@ -96,17 +90,14 @@
     } else {
       replacement <- i
     }
-    date <- gsub(
-      pattern = months$full[i],
-      replacement = replacement,
-      x = date
-    )
 
-    date <- gsub(
-      pattern = months$abbrev[i],
-      replacement = replacement,
-      x = date
-    )
+    for (j in seq_along(months$months[[i]])) {
+      date <- gsub(
+        pattern = months$months[[i]][j],
+        replacement = replacement,
+        x = date
+      )
+    }
   }
   date
 }
@@ -114,7 +105,7 @@
 #' @noRd
 .checkday <- function(day.impute) {
   if (!is.na(day.impute) && !is.null(day.impute)) {
-    if (day.impute < 1 | day.impute > 28) {
+    if (day.impute < 1 || day.impute > 28) {
       stop("day.impute should be an integer between 1 and 28\n")
     }
     if (!(day.impute %% 1 == 0)) {
@@ -127,7 +118,7 @@
 #' @noRd
 .checkmonth <- function(month.impute) {
   if (!is.na(month.impute) && !is.null(month.impute)) {
-    if (month.impute < 1 | month.impute > 12) {
+    if (month.impute < 1 || month.impute > 12) {
       stop("month.impute should be an integer between 1 and 12\n")
     }
     if (!(month.impute %% 1 == 0)) {
@@ -140,12 +131,12 @@
 #' @noRd
 .checkoutput <- function(day, month) {
   if (!is.na(month)) {
-    if (as.numeric(month) > 12 | as.numeric(month) < 1) {
+    if (as.numeric(month) > 12 || as.numeric(month) < 1) {
       stop("Month not in expected range \n")
     }
   }
   if (!is.na(day)) {
-    if (as.numeric(day) > 31 | as.numeric(day) < 1) {
+    if (as.numeric(day) > 31 || as.numeric(day) < 1) {
       stop("Day of the year not in expected range \n")
     }
   }
@@ -243,7 +234,9 @@
 }
 
 
-.fix_date_char <- function(date, day.impute = 1, month.impute = 7, format = "dmy") {
+.fix_date_char <- function(date, day.impute = 1,
+                           month.impute = 7,
+                           format = "dmy") {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
