@@ -342,13 +342,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datefixR)</span></code></pre></div>
 <p>This vignette describes the functionality of <code>datefixR</code> in
-more detail than the <a href="https://github.com/ropensci/datefixR">README</a>.
-<code>DatefixR</code> is a lightweight package consisting of a two
+more detail than the <a href="https://github.com/ropensci/datefixR">README</a> file.
+<code>DatefixR</code> is a lightweight package consisting of two main
 user-accessible functions, <code>fix_date_char()</code> and
 <code>fix_date_df()</code>, which converts dates written in different
-formats into R’s built-in <code>Date</code> class. The former is
-designed to modify character vectors whilst the latter is intended for
-modifying columns of a data frame (or tibble).</p>
+formats into R’s built-in <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Dates"><code>Date</code>
+class</a>. The former is designed to modify character vectors whilst the
+latter is intended for modifying columns of a data frame (or tibble).
+<code>fix_date_app()</code> is a third function which allows dates to be
+standardized via a Shiny app interface. You can learn more about the
+Shiny app in its dedicated vignette.</p>
 <p>Practically, this package is most useful when handling date data
 which has been supplied via text boxes (instead of a date-specific input
 with a consistent date format). However, this package may also be useful
@@ -371,7 +374,7 @@ with no missing data.</p>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">some.more.dates =</span> <span class="fu">c</span>(</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;01 03 2015&quot;</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;02/05/00&quot;</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;2nd January 2010&quot;</span>,</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;01/05/1990&quot;</span>,</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;03-Dec-2012&quot;</span>,</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;02 April 2020&quot;</span></span>
@@ -395,7 +398,7 @@ with no missing data.</p>
 <tr class="even">
 <td align="right">2</td>
 <td align="left">01-04-2020</td>
-<td align="left">02/05/00</td>
+<td align="left">2nd January 2010</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
@@ -418,11 +421,13 @@ with no missing data.</p>
 data frame (or tibble) object and <code>col.names</code>, a character
 vector containing the names of columns to be standardized. By default,
 the first column of the data frame is assumed to contain row IDs. These
-IDs are used if a warning or error is raised to assist with locating the
-source of the error. The ID column can also be manually provided via the
-<code>id</code> argument.</p>
-<p>The output from this function is a data frame object with the
-selected date columns now belonging to the <code>Date</code> class.</p>
+IDs are used if a warning or error is raised to assist the user with
+locating the source of the error. The ID column can also be manually
+provided via the <code>id</code> argument.</p>
+<p>The output from this function is a data frame or tibble (dependent on
+the object type of the the first argument, <code>df</code>) with the
+selected date columns now standardized and belonging to the
+<code>Date</code> class.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fixed.dates <span class="ot">&lt;-</span> <span class="fu">fix_date_df</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  bad.dates,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&quot;some.dates&quot;</span>, <span class="st">&quot;some.more.dates&quot;</span>)</span>
@@ -445,7 +450,7 @@ selected date columns now belonging to the <code>Date</code> class.</p>
 <tr class="even">
 <td align="right">2</td>
 <td align="left">2020-04-01</td>
-<td align="left">2000-05-02</td>
+<td align="left">2010-01-02</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
@@ -465,7 +470,7 @@ selected date columns now belonging to the <code>Date</code> class.</p>
 </tbody>
 </table>
 <p><code>datefixR</code> can handle many different formats including -,
-/, or white space separation, year-first or day-first, and month
+/, ., or white space separation, year-first or day-first, and month
 supplied as a number, an abbreviation or full length name.</p>
 <p><code>fix_date_char()</code> is similar to <code>fix_date_df()</code>
 but only applies to a single character object.</p>
@@ -474,62 +479,69 @@ but only applies to a single character object.</p>
 </div>
 <div id="localization" class="section level3">
 <h3>Localization</h3>
-<p>datefixR` supports dates being provided in English, Français
-(French), Deutsche (German), español (Spanish), or português
-(Portuguese) by recognizing both the names of the months in these
+<p><code>datefixR</code> currently supports dates being provided in
+English, Français (French), Deutsch (German), español (Spanish), and
+português (Portuguese) by recognizing both names of months in these
 languages and formatting customs. Expected languages do not need to be
 specified and can be provided just like any other date to be
-standardized. This can be seen by calling</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;7 de septiembre de 2014&quot;</span>)</span>
+standardized.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;7 de septiembre del 2014&quot;</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2014-09-07&quot;</span></span></code></pre></div>
 <p>Functions in <code>datefixR</code> assume day-first instead of
-month-first when day, month, and year are all given (unless year is
-given first). However this behavior can be modified by passing
+month-first when day, month, and year are all given numerically (unless
+year is given first). However, this behavior can be modified by passing
 <code>format = &quot;mdy&quot;</code> to function calls.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;01 02 2014&quot;</span>, <span class="at">format =</span> <span class="st">&quot;mdy&quot;</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2014-01-02&quot;</span></span></code></pre></div>
+<p>If the month is given by name, then <code>datefixR</code> will
+automatically detect the correct format without the <code>format</code>
+argument needing to be specified by the user.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;July 4th, 1776&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1776-07-04&quot;</span></span></code></pre></div>
 </div>
 <div id="date-and-month-imputation" class="section level3">
 <h3>Date and month imputation</h3>
 <p>By default, <code>datefixR</code> imputes missing months as July, and
 missing days of the month as the first day. As such, “1992” converts
 to</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1992-07-01&quot;</span></span></code></pre></div>
-<p>The argument for defaulting to July is 1-2 July is halfway through
-the year (on a non leap year). Therefore assuming the year supplied is
-indeed correct, you are only a maximum of 6 months off from the true
-date. However, this behavior can be changed by supplying the
-<code>day.impute</code> and <code>month.impute</code> arguments with an
-integer corresponding to the desired day and month. For example,
-<code>day.impute = 1</code> and <code>month.impute = 1</code> results in
-the first day of January being imputed instead.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">day.impute =</span> <span class="dv">1</span>, <span class="at">month.impute =</span> <span class="dv">1</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1992-01-01&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1992-07-01&quot;</span></span></code></pre></div>
+<p>The argument for defaulting to July is 1st-2nd July is halfway
+through the year (on a non leap year). Therefore, assuming the year
+supplied is indeed correct, the imputation has a maximum potential error
+of 6 months from the true date. However, this behavior can be changed by
+supplying the <code>day.impute</code> and <code>month.impute</code>
+arguments with an integer corresponding to the desired day and month.
+For example, <code>day.impute = 1</code> and
+<code>month.impute = 1</code> results in the first day of January being
+imputed instead which is often a more common imputation for missing date
+data.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">day.impute =</span> <span class="dv">1</span>, <span class="at">month.impute =</span> <span class="dv">1</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1992-01-01&quot;</span></span></code></pre></div>
 <p>The imputation mechanism can also be modified to impute
 <code>NA</code> if a month or day is missing by setting
 <code>day.impute</code> or <code>month.impute</code> to <code>NA</code>.
 This will also result in a warning being raised.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">month.impute =</span> <span class="cn">NA</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: NA imputed (date: 1992)</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">month.impute =</span> <span class="cn">NA</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: NA imputed (date: 1992)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span></code></pre></div>
 <p>Finally, imputation can be prevented by setting
 <code>day.impute</code> or <code>month.impute</code> to
 <code>NULL</code>. This will result in an error being raised if the day
 or month are missing respectively.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">month.impute =</span> <span class="cn">NULL</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ERROR</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">month.impute =</span> <span class="cn">NULL</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ERROR</span></span></code></pre></div>
 <p><code>day.impute</code> and <code>month.impute</code> can also be
 passed to <code>fix_date_df()</code> for similar functionality.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>example.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>),</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">some.dates =</span> <span class="fu">c</span>(<span class="st">&quot;2014&quot;</span>, <span class="st">&quot;April 1990&quot;</span>, <span class="st">&quot;Mar 19&quot;</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_df</span>(example.df, <span class="st">&quot;some.dates&quot;</span>, <span class="at">day.impute =</span> <span class="dv">1</span>, <span class="at">month.impute =</span> <span class="dv">1</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id some.dates</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1 2014-01-01</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2 1990-04-01</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3 2019-03-01</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>example.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">some.dates =</span> <span class="fu">c</span>(<span class="st">&quot;2014&quot;</span>, <span class="st">&quot;April 1990&quot;</span>, <span class="st">&quot;Mar 19&quot;</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fix_date_df</span>(example.df, <span class="st">&quot;some.dates&quot;</span>, <span class="at">day.impute =</span> <span class="dv">1</span>, <span class="at">month.impute =</span> <span class="dv">1</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id some.dates</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1 2014-01-01</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2 1990-04-01</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3 2019-03-01</span></span></code></pre></div>
 </div>
 </div>
 <div id="citation" class="section level2">
@@ -537,23 +549,23 @@ passed to <code>fix_date_df()</code> for similar functionality.</p>
 <p>If you use this package in your research, please consider citing
 <code>datefixR</code>. An up-to-date citation can be obtained by
 running</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;datefixR&quot;</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; To cite datefixR in publications use:</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Constantine-Cooke, Nathan . datefixR: Fix Really Messy Dates in R. R</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   package version 1.2.0. DOI: 10.5281/zenodo.5655311.</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   https://CRAN.R-project.org/package=datefixR</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     title = {{datefixR}: Standardize Dates in Different Formats or with Missing Data},</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     author = {Nathan Constantine-Cooke},</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=datefixR},</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     doi = {10.5281/zenodo.5655311},</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 1.2.0},</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;datefixR&quot;</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; To cite datefixR in publications use:</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Constantine-Cooke, Nathan . datefixR: Fix Really Messy Dates in R. R</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   package version 1.3.0. DOI: 10.5281/zenodo.5655311.</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   https://CRAN.R-project.org/package=datefixR</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     title = {{datefixR}: Standardize Dates in Different Formats or with Missing Data},</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     author = {Nathan Constantine-Cooke},</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=datefixR},</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     doi = {10.5281/zenodo.5655311},</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 1.3.0},</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 
 
