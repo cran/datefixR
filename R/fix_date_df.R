@@ -50,11 +50,11 @@ fix_date_df <- function(df,
 
   if (is.null(id)) id <- 1 # Use first column as id if not explicitly given
 
-  .checkday(day.impute)
+  checkday(day.impute)
   .checkmonth(month.impute)
   day.impute <- .convertimpute(day.impute)
   month.impute <- .convertimpute(month.impute)
-
+  .accept_multi_byte()
   for (col.name in col.names) {
     fixed.dates <- c()
     for (i in seq_len(nrow(df))) {

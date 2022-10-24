@@ -1,13 +1,14 @@
-41a3ea99db27cc04ad14ed5b8cc2473c *DESCRIPTION
-d4ffa1a60eea769e1b28123d14e4090f *NAMESPACE
-7f8f173c5eb5e6291a97d48baeba5c00 *NEWS.md
+aa1bb6678188525c6946655be363f6d8 *DESCRIPTION
+9a1c003d9c91fef40d0d0861fb3768f8 *NAMESPACE
+9f271469c737b0fbb6b9556002054176 *NEWS.md
+68c79872875d6517596f55216c6c9810 *R/RcppExports.R
 3ffe8e9576af65f1fa197cfdff0ba9f4 *R/data.R
-b4356ccbb6f1945a2db9413481a2f55c *R/datefixR-package.R
+dfbf495b34ad4def97e8d37d97c42aa7 *R/datefixR-package.R
 9bd2da62122b06dd088f478cfff94dc1 *R/fix_date.R
-9a854ce900678d082b8f9d55644b3611 *R/fix_date_char.R
-6b097d85db5c2cb9f3859e654ca11d2a *R/fix_date_df.R
+be93dc4c5ab99d4863f5a07cb0864e34 *R/fix_date_char.R
+43c14649aee57ae40fb4071494213949 *R/fix_date_df.R
 ea1f069cbfeeeca94731cda3fff3f472 *R/fix_dates.R
-d7de5a47e64f1c505f27357d48fa795f *R/internal.R
+569da945d3469569cf6ee6e37c4b99b1 *R/internal.R
 c3f1dcde5130a87768b12c54a5ebb60f *R/months.R
 b5a0ddf78d133c595b18f81bec87ed59 *R/shinyapp.R
 54f99474aaf09d7ef2a783fac496f6c6 *README.md
@@ -17,7 +18,7 @@ b5a0ddf78d133c595b18f81bec87ed59 *R/shinyapp.R
 f0995d6443cc2492148980a9d89bd742 *inst/WORDLIST
 0ea664d206b8ff749e90c390629c0546 *inst/doc/datefixR.R
 6c8319158b9a030128a72ed82738427d *inst/doc/datefixR.Rmd
-5eb8dccf424fb8f6e157fb03dcb375ca *inst/doc/datefixR.html
+10848e07a01c51197daa63226fdc1f5b *inst/doc/datefixR.html
 bb02172faee85d1382f049455283d5a4 *inst/example.csv
 027c753c2eaafcfa5bb67bcc923e5909 *inst/example.xlsx
 7133604d3add87548ba974a47d670ec2 *inst/po/de/LC_MESSAGES/R-datefixR.mo
@@ -51,6 +52,8 @@ f3749779813f88005a507e45563a9cd2 *po/R-datefixR.pot
 59fd7ad5a829d38be202169f610f52b9 *po/R-es.po
 f0e7cbb47d82eb24c58c2b674274f0bd *po/R-fr.po
 968f00970e06fdb18e28b5d8717e1d2e *po/R-pt.po
+511c5a726aae0b0207db410446e3a8a3 *src/RcppExports.cpp
+e430d498d3bc9f3d78b4fa883eb29df2 *src/code.cpp
 50f330eeca8db092d6807e04457bd06d *tests/spelling.R
 ce970a0f7b8248779a1b68db21c45e5a *tests/testthat.R
 b43af77480690e26c94cb7f27ef56cd4 *tests/testthat/_snaps/fix_date.md
@@ -71,5 +74,5 @@ b92e0f71d9f81bb55e8d583a4a81e902 *tests/testthat/test_fix_date.R
 323d6ff10281172fbb699167a2c862c8 *tests/testthat/test_fix_date_char.R
 006d22799f1b69146651e2555aeeb425 *tests/testthat/test_fix_date_df.R
 75c382f3e31fe34ff453a5caa97f5fe9 *tests/testthat/test_fix_dates.R
-6640f2df43230799ca2915b60fc89859 *tests/testthat/test_languages.R
+92d3c241d0b1472346906dad6503d806 *tests/testthat/test_languages.R
 6c8319158b9a030128a72ed82738427d *vignettes/datefixR.Rmd
