@@ -67,5 +67,13 @@ example.df <- data.frame(
 fix_date_df(example.df, "some.dates", day.impute = 1, month.impute = 1)
 
 ## -----------------------------------------------------------------------------
+date <- as.numeric(as.Date("2023-01-17"))
+print(date)
+fix_date_char(as.character(date))
+
+## -----------------------------------------------------------------------------
+fix_date_char("44941", excel = TRUE)
+
+## -----------------------------------------------------------------------------
 citation("datefixR")
 

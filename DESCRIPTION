@@ -1,6 +1,6 @@
 Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
-Version: 1.3.1
+Version: 1.4.0
 Authors@R: c(
     person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4437-8713")),
@@ -30,18 +30,19 @@ URL: https://docs.ropensci.org/datefixR/,
 BugReports: https://github.com/ropensci/datefixR/issues
 Depends: R (>= 4.1.0)
 Imports: lifecycle, Rcpp, rlang, stringr
-Suggests: DT, htmltools, knitr, readxl, rmarkdown, shiny, shinytest,
-        spelling, testthat (>= 3.0.0), withr, parsedate, readr
+Suggests: DT, htmltools, knitr, readxl, rmarkdown, shiny, shinytest2,
+        spelling, testthat (>= 3.0.0), withr, parsedate, readr, png,
+        pkgbuild
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 LinkingTo: Rcpp
 NeedsCompilation: yes
-Packaged: 2022-10-24 14:16:36 UTC; s1961592
+Packaged: 2023-01-17 15:49:04 UTC; s1961592
 Author: Nathan Constantine-Cooke [aut, cre]
     (<https://orcid.org/0000-0002-4437-8713>),
   Jonathan Kitt [ctb, trl],
@@ -52,4 +53,4 @@ Author: Nathan Constantine-Cooke [aut, cre]
   Al-Ahmadgaid B. Asaad [rev] (<https://orcid.org/0000-0003-3784-8593>)
 Maintainer: Nathan Constantine-Cooke <nathan.constantine-cooke@ed.ac.uk>
 Repository: CRAN
-Date/Publication: 2022-10-24 15:25:08 UTC
+Date/Publication: 2023-01-17 16:30:02 UTC

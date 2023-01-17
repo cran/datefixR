@@ -1,10 +1,10 @@
-
 #' @noRd
 .fix_date <- function(date,
                       day.impute,
                       month.impute,
                       subject,
-                      format = format) {
+                      format = format,
+                      excel) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
@@ -21,6 +21,15 @@
     imputeday(day.impute)
     day <- day.impute
   } else {
+    if (!grepl("\\D", date)) {
+      # Assume date is number of days since 1970-01-01
+      if (excel) {
+        return(as.character(as.Date(as.numeric(date), origin = "1900-01-01")))
+      } else {
+        return(as.character(as.Date(as.numeric(date), origin = "1970-01-01")))
+      }
+    }
+
     if (tolower(.separate_date(date)[1]) %in% unlist(months$months)) {
       format <- "mdy"
     }
@@ -227,7 +236,8 @@
 #' @noRd
 .fix_date_char <- function(date, day.impute = 1,
                            month.impute = 7,
-                           format = "dmy") {
+                           format = "dmy",
+                           excel) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
@@ -248,6 +258,13 @@
     imputeday(day.impute)
     day <- day.impute
   } else {
+    if (!grepl("\\D", date)) {
+      if (excel) {
+        return(as.Date(as.numeric(date), origin = "1900-01-01"))
+      } else {
+        return(as.Date(as.numeric(date), origin = "1970-01-01"))
+      }
+    }
     if (tolower(.separate_date(date)[1]) %in% unlist(months$months)) {
       format <- "mdy"
     }
@@ -297,7 +314,7 @@
 
 .accept_multi_byte <- function() {
   multi.byte <- l10n_info()$MBCS
-  if (!l10n_info()$MBCS) {
+  if (!multi.byte) {
     warning(
       "The current locale does not support multibyte characters. ",
       "You may run into difficulties if any months are given as ",
