@@ -221,13 +221,12 @@
 
 #' @noRd
 .appendyear <- function(date_vec) {
-  if (all(nchar(date_vec) == 2)) {
+  if (all(nchar(date_vec) == 2 | nchar(date_vec) == 1)) {
     if (length(date_vec) == 3) {
-      # Assume DD/MM/YY or MM/DD/YY
-      date_vec[3] <- .yearprefix(date_vec[3])
+      if (nchar(date_vec[3]) == 2) date_vec[3] <- .yearprefix(date_vec[3])
     } else if (length(date_vec) == 2) {
       # Assume MM/YY
-      date_vec[2] <- .yearprefix(date_vec[2])
+      if (nchar(date_vec[2]) == 2) date_vec[2] <- .yearprefix(date_vec[2])
     }
   }
   date_vec
@@ -260,7 +259,8 @@
   } else {
     if (!grepl("\\D", date)) {
       if (excel) {
-        return(as.Date(as.numeric(date), origin = "1900-01-01"))
+        # Excel incorrectly considers 1900 to be a leap year
+        return(as.Date(as.numeric(date) - 2, origin = "1900-01-01"))
       } else {
         return(as.Date(as.numeric(date), origin = "1970-01-01"))
       }
@@ -309,16 +309,4 @@
   }
   .checkoutput(day, month)
   as.Date(.combinepartialdate(day, month, year, date))
-}
-
-
-.accept_multi_byte <- function() {
-  multi.byte <- l10n_info()$MBCS
-  if (!multi.byte) {
-    warning(
-      "The current locale does not support multibyte characters. ",
-      "You may run into difficulties if any months are given as ",
-      "non-English language names. \n"
-    )
-  }
 }
