@@ -13,6 +13,15 @@ String process_french(String date) {
 }
 
 // [[Rcpp::export]]
+String process_russian(String date) {
+  date.replace_all("марта", "март");
+  date.replace_all("Марта", "Март");
+  date.replace_all("августа", "август");
+  date.replace_all("Августа", "Август");
+  return date;
+}
+
+// [[Rcpp::export]]
 void imputemonth(Nullable<String> monthImpute_) {
   if (monthImpute_.isNull()) {
     stop(_("Missing month with no imputation value given \n"));
@@ -26,8 +35,7 @@ void imputeday(Nullable<String> dayImpute_) {
   }
 }
 
-
-// [[Rcpp::export]]
+// Not used following update to Rtools 43 Windows
 String rm_ordinal_suffixes(String date_) {
   std::string date(date_);
   date = std::regex_replace(date, std::regex("(\\d)(st,)"), "$1");

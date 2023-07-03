@@ -21,6 +21,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// process_russian
+String process_russian(String date);
+RcppExport SEXP _datefixR_process_russian(SEXP dateSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< String >::type date(dateSEXP);
+    rcpp_result_gen = Rcpp::wrap(process_russian(date));
+    return rcpp_result_gen;
+END_RCPP
+}
 // imputemonth
 void imputemonth(Nullable<String> monthImpute_);
 RcppExport SEXP _datefixR_imputemonth(SEXP monthImpute_SEXP) {
@@ -41,17 +52,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// rm_ordinal_suffixes
-String rm_ordinal_suffixes(String date_);
-RcppExport SEXP _datefixR_rm_ordinal_suffixes(SEXP date_SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< String >::type date_(date_SEXP);
-    rcpp_result_gen = Rcpp::wrap(rm_ordinal_suffixes(date_));
-    return rcpp_result_gen;
-END_RCPP
-}
 // checkday
 void checkday(Nullable<NumericVector> dayImpute);
 RcppExport SEXP _datefixR_checkday(SEXP dayImputeSEXP) {
@@ -65,9 +65,9 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_datefixR_process_french", (DL_FUNC) &_datefixR_process_french, 1},
+    {"_datefixR_process_russian", (DL_FUNC) &_datefixR_process_russian, 1},
     {"_datefixR_imputemonth", (DL_FUNC) &_datefixR_imputemonth, 1},
     {"_datefixR_imputeday", (DL_FUNC) &_datefixR_imputeday, 1},
-    {"_datefixR_rm_ordinal_suffixes", (DL_FUNC) &_datefixR_rm_ordinal_suffixes, 1},
     {"_datefixR_checkday", (DL_FUNC) &_datefixR_checkday, 1},
     {NULL, NULL, 0}
 };

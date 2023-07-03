@@ -1,6 +1,6 @@
 Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
-Version: 1.4.1
+Version: 1.5.0
 Authors@R: c(
     person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4437-8713")),
@@ -12,7 +12,9 @@ Authors@R: c(
     person("Kaique dos S.", "Alves", , "kaiquedsalves@gmail.com", role = "rev",
            comment = c(ORCID = "0000-0001-9187-0252")),
     person("Al-Ahmadgaid B.", "Asaad", , "alahmadgaid@gmail.com", role = "rev",
-           comment = c(ORCID = "0000-0003-3784-8593"))
+           comment = c(ORCID = "0000-0003-3784-8593")),
+    person("Anatoly", "Tsyplenkov", ,"atsyplenkov@gmail.com", role = c("ctb", "trl"), 
+           comment = c(ORCID = "0000-0003-4144-8402"))
   )
 Description: There are many different formats dates are commonly
     represented with: the order of day, month, or year can differ,
@@ -42,7 +44,7 @@ LazyData: true
 RoxygenNote: 7.2.3
 LinkingTo: Rcpp
 NeedsCompilation: yes
-Packaged: 2023-02-10 14:37:02 UTC; s1961592
+Packaged: 2023-07-03 09:58:48 UTC; s1961592
 Author: Nathan Constantine-Cooke [aut, cre]
     (<https://orcid.org/0000-0002-4437-8713>),
   Jonathan Kitt [ctb, trl],
@@ -50,7 +52,8 @@ Author: Nathan Constantine-Cooke [aut, cre]
     (<https://orcid.org/0000-0002-1747-0469>),
   Daniel Possenriede [ctb, trl] (<https://orcid.org/0000-0002-6738-9845>),
   Kaique dos S. Alves [rev] (<https://orcid.org/0000-0001-9187-0252>),
-  Al-Ahmadgaid B. Asaad [rev] (<https://orcid.org/0000-0003-3784-8593>)
+  Al-Ahmadgaid B. Asaad [rev] (<https://orcid.org/0000-0003-3784-8593>),
+  Anatoly Tsyplenkov [ctb, trl] (<https://orcid.org/0000-0003-4144-8402>)
 Maintainer: Nathan Constantine-Cooke <nathan.constantine-cooke@ed.ac.uk>
 Repository: CRAN
-Date/Publication: 2023-02-10 15:00:09 UTC
+Date/Publication: 2023-07-03 10:20:02 UTC

@@ -4,14 +4,16 @@
                       month.impute,
                       subject,
                       format = format,
-                      excel) {
+                      excel,
+                      roman.numeral) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
 
   date <- as.character(date) |>
-    rm_ordinal_suffixes() |>
-    process_french()
+    .rm_ordinal_suffixes() |>
+    process_french() |>
+    process_russian()
 
   if (nchar(date) == 4) {
     # Just given year
@@ -35,6 +37,9 @@
     }
     date <- .convert_text_month(date)
     date_vec <- .separate_date(date)
+
+    if (roman.numeral) date_vec <- roman_conversion(date_vec)
+
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
     }
@@ -236,7 +241,8 @@
 .fix_date_char <- function(date, day.impute = 1,
                            month.impute = 7,
                            format = "dmy",
-                           excel) {
+                           excel,
+                           roman.numeral) {
   if (is.null(date) || is.na(date) || as.character(date) == "") {
     return(NA)
   }
@@ -246,8 +252,9 @@
   month.impute <- .convertimpute(month.impute)
 
   date <- as.character(date) |>
-    rm_ordinal_suffixes() |>
-    process_french()
+    .rm_ordinal_suffixes() |>
+    process_french() |>
+    process_russian()
 
   if (nchar(date) == 4) {
     # Just given year
@@ -270,6 +277,7 @@
     }
     date <- .convert_text_month(date)
     date_vec <- .separate_date(date)
+    if (roman.numeral) date_vec <- roman_conversion(date_vec)
     if (any(nchar(date_vec) > 4)) {
       stop("unable to tidy a date")
     }
@@ -309,4 +317,27 @@
   }
   .checkoutput(day, month)
   as.Date(.combinepartialdate(day, month, year, date))
+}
+
+#' @noRd
+.rm_ordinal_suffixes <- function(date) {
+  # Remove ordinal suffixes
+  stringr::str_replace(date, "(\\d)(st,)", "\\1") |>
+    stringr::str_replace("(\\d)(nd,)", "\\1") |>
+    stringr::str_replace("(\\d)(rd,)", "\\1") |>
+    stringr::str_replace("(\\d)(th,)", "\\1") |>
+    stringr::str_replace("(\\d)(st)", "\\1") |>
+    stringr::str_replace("(\\d)(nd)", "\\1") |>
+    stringr::str_replace("(\\d)(rd)", "\\1") |>
+    stringr::str_replace("(\\d)(th)", "\\1")
+}
+
+roman_conversion <- function(date_vec) {
+  if (date_vec[2] %in% months$roman) {
+    date_vec[2] <- which(months$roman == date_vec[2])
+    if (nchar(date_vec[2]) == 1) {
+      date_vec[2] <- paste0("0", date_vec[2])
+    }
+  }
+  date_vec
 }

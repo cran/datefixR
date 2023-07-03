@@ -481,10 +481,9 @@ but only applies to a single character object.</p>
 <h3>Localization</h3>
 <p><code>datefixR</code> currently supports dates being provided in
 English, Français (French), Deutsch (German), español (Spanish), and
-português (Portuguese) by recognizing both names of months in these
-languages and formatting customs. Expected languages do not need to be
-specified and can be provided just like any other date to be
-standardized.</p>
+Русский (Russian) by recognizing both names of months in these languages
+and formatting customs. Expected languages do not need to be specified
+and can be provided just like any other date to be standardized.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;7 de septiembre del 2014&quot;</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2014-09-07&quot;</span></span></code></pre></div>
 <p>Functions in <code>datefixR</code> assume day-first instead of
@@ -566,31 +565,41 @@ function to rectify this.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;44941&quot;</span>, <span class="at">excel =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-01-15&quot;</span></span></code></pre></div>
 </div>
+<div id="roman-numeral-months-experimental" class="section level3">
+<h3>Roman numeral months <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTM4IiBoZWlnaHQ9IjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9ImxpZmVjeWNsZTogZXhwZXJpbWVudGFsIj4KICAgIDx0aXRsZT5saWZlY3ljbGU6IGV4cGVyaW1lbnRhbDwvdGl0bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InMiIHgyPSIwIiB5Mj0iMTAwJSI+CiAgICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIiAvPgogICAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8Y2xpcFBhdGggaWQ9InIiPgogICAgICAgIDxyZWN0IHdpZHRoPSIxMzgiIGhlaWdodD0iMjAiIHJ4PSIzIiBmaWxsPSIjZmZmIiAvPgogICAgPC9jbGlwUGF0aD4KICAgIDxnIGNsaXAtcGF0aD0idXJsKCNyKSI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjU1IiBoZWlnaHQ9IjIwIiBmaWxsPSIjNTU1IiAvPgogICAgICAgIDxyZWN0IHg9IjU1IiB3aWR0aD0iODMiIGhlaWdodD0iMjAiIGZpbGw9IiNmZTdkMzciIC8+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjEzOCIgaGVpZ2h0PSIyMCIgZmlsbD0idXJsKCNzKSIgLz4KICAgIDwvZz4KICAgIDxnIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLEdlbmV2YSxEZWphVnUgU2FucyxzYW5zLXNlcmlmIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiBmb250LXNpemU9IjExMCI+CiAgICAgICAgPHRleHQgYXJpYS1oaWRkZW49InRydWUiIHg9IjI4NSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNDUwIj5saWZlY3ljbGU8L3RleHQ+CiAgICAgICAgPHRleHQgeD0iMjg1IiB5PSIxNDAiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiBmaWxsPSIjZmZmIiB0ZXh0TGVuZ3RoPSI0NTAiPmxpZmVjeWNsZTwvdGV4dD4KICAgICAgICA8dGV4dCBhcmlhLWhpZGRlbj0idHJ1ZSIgeD0iOTU1IiB5PSIxNTAiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSI3MzAiPmV4cGVyaW1lbnRhbDwvdGV4dD4KICAgICAgICA8dGV4dCB4PSI5NTUiIHk9IjE0MCIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIGZpbGw9IiNmZmYiIHRleHRMZW5ndGg9IjczMCI+ZXhwZXJpbWVudGFsPC90ZXh0PgogICAgPC9nPgo8L3N2Zz4K" alt="Experimental" /></a></h3>
+<p>Oracle Database can use Roman numerals to format months and this
+custom is also used in some biological contexts. If dates in need of
+parsing are in this format, <code>roman.numeral = TRUE</code> can be
+passed to <code>fix_date_char()</code> or <code>fix_date_df()</code>.
+This implementation is currently experimental and is not guaranteed to
+work alongside other date formats.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;12/IV/2019&quot;</span>, <span class="at">roman.numeral =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2019-04-12&quot;</span></span></code></pre></div>
+</div>
 </div>
 <div id="citation" class="section level2">
 <h2>Citation</h2>
 <p>If you use this package in your research, please consider citing
 <code>datefixR</code>. An up-to-date citation can be obtained by
 running</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;datefixR&quot;</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; To cite package &#39;datefixR&#39; in publications use:</span></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt;   Constantine-Cooke N (2023). _datefixR: Standardize Dates in Different</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt;   Formats or with Missing Data_. doi:10.5281/zenodo.5655311</span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt;   &lt;https://doi.org/10.5281/zenodo.5655311&gt;, R package version 1.4.1,</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt;   &lt;https://CRAN.R-project.org/package=datefixR&gt;.</span></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt;     title = {{datefixR}: Standardize Dates in Different Formats or with Missing Data},</span></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt;     author = {Nathan Constantine-Cooke},</span></span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt;     year = {2023},</span></span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 1.4.1},</span></span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt;     doi = {10.5281/zenodo.5655311},</span></span>
-<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=datefixR},</span></span>
-<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;datefixR&quot;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co">#&gt; To cite package &#39;datefixR&#39; in publications use:</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#&gt;   Constantine-Cooke N (2023). _datefixR: Standardize Dates in Different</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">#&gt;   Formats or with Missing Data_. doi:10.5281/zenodo.5655311</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co">#&gt;   &lt;https://doi.org/10.5281/zenodo.5655311&gt;, R package version 1.5.0,</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co">#&gt;   &lt;https://CRAN.R-project.org/package=datefixR&gt;.</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt;     title = {{datefixR}: Standardize Dates in Different Formats or with Missing Data},</span></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt;     author = {Nathan Constantine-Cooke},</span></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt;     year = {2023},</span></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 1.5.0},</span></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt;     doi = {10.5281/zenodo.5655311},</span></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=datefixR},</span></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 
 
