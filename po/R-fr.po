@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: datefixR 1.3.1\n"
-"POT-Creation-Date: 2023-02-14 15:02\n"
+"POT-Creation-Date: 2023-08-03 11:24\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,8 +37,8 @@ msgstr "month.impute doit être un nombre entier"
 msgid "Month not in expected range"
 msgstr "Month ne se situe pas dans l'intervalle attendu "
 
-msgid "Day of the year not in expected range"
-msgstr "Day of the year ne se situe pas dans l'intervalle attendu"
+msgid "Day not in expected range"
+msgstr "Day ne se situe pas dans l'intervalle attendu "
 
 msgid "format should be either 'dmy' or 'mdy'"
 msgstr "le format doit être soit 'jma' ou 'mja'"
@@ -56,12 +56,13 @@ msgid "theme should be 'datefixR' or 'none'"
 msgstr "le thème doit être 'datefixR' ou 'none'"
 
 msgid "The current locale does not support multibyte characters."
-msgstr ""
-"Les réglages régionaux actuels ne prennent pas en charge les caractères "
-"multioctets."
+msgstr "Les réglages régionaux actuels ne prennent pas en charge les caractères multioctets."
 
 msgid "You may run into difficulties if any months are given as"
 msgstr "Vous risquez de rencontrer des difficultés si des mois sont utilisés"
 
 msgid "non-English language names."
 msgstr "avec des noms dans une langue autre que l'anglais."
+
+#~ msgid "Day of the year not in expected range"
+#~ msgstr "Day of the year ne se situe pas dans l'intervalle attendu"
