@@ -1,4 +1,4 @@
-#' @title Shiny application standardizing date data in csv of excel files
+#' @title Shiny application standardizing date data in csv or excel files
 #' @description A shiny application which allows users to standardize dates
 #'   using a graphical user interface (GUI). Most features of \code{datefixR}
 #'   are supported including imputing missing date data. Data can be provided as
@@ -8,7 +8,7 @@
 #'   installed alongside \code{datefixR}. This allows \code{datefixR} to be
 #'   installed on secure systems where these packages may not be allowed. If one
 #'   of these dependencies is not installed on the system when this function is
-#'   called, then the user will have the option of installing them.
+#'   called, then the user will be given the option of installing them.
 #' @param theme Color theme for shiny app. Either \code{"datefixR"}
 #'   (\code{datefixR} colors) or \code{"none"}(default shiny app styling).
 #' @return A shiny app.
@@ -19,7 +19,8 @@
 #' }
 #' @export
 fix_date_app <- function(theme = "datefixR") {
-  rlang::check_installed(c("DT", "shiny", "readxl", "htmltools"),
+  rlang::check_installed(
+    c("DT", "shiny", "readxl", "htmltools"),
     reason = "to use `fix_date_app()`"
   )
 
@@ -44,16 +45,19 @@ fix_date_app <- function(theme = "datefixR") {
             placeholder = ".xlsx (Excel) or .csv file"
           ),
           shiny::uiOutput("columns"),
-          shiny::selectInput("date.input",
+          shiny::selectInput(
+            "date.input",
             "Day of month to impute",
             choices = c(seq(1, 28), NA)
           ),
-          shiny::selectInput("month.input",
+          shiny::selectInput(
+            "month.input",
             "Month to impute",
             choices = c(seq(1, 12), NA),
             selected = 7
           ),
-          shiny::selectInput("format",
+          shiny::selectInput(
+            "format",
             "Assumed format",
             choices = c("dmy", "mdy")
           ),
@@ -132,14 +136,16 @@ fix_date_app <- function(theme = "datefixR") {
                </p>"
             ),
             htmltools::h3("Bug Reports"),
-            htmltools::HTML("
+            htmltools::HTML(
+              "
               <p>
                 If you encounter any bugs or have a feature request, please
                 create a GitHub Issue
                 <a href = 'https://www.github.com/ropensci/datefixR/issues'>
                   here.
                 </a>
-              </p>"),
+              </p>"
+            ),
             htmltools::tags$hr(),
             "Developed and maintained by",
             htmltools::tags$a(
@@ -161,7 +167,8 @@ fix_date_app <- function(theme = "datefixR") {
 
   if (theme == "datefixR") {
     htmltools::tags$head(
-      htmltools::tags$style(htmltools::HTML("
+      htmltools::tags$style(htmltools::HTML(
+        "
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Zen+Tokyo+Zoo&display=swap');
 
   body {
@@ -242,7 +249,8 @@ fix_date_app <- function(theme = "datefixR") {
   .btn-default {
     background-color: #264653 !important;
     color: white !important;
-  }")),
+  }"
+      )),
       htmltools::tags$link(
         rel = "icon",
         type = "image/png",
@@ -337,7 +345,8 @@ fix_date_app <- function(theme = "datefixR") {
   shiny::observeEvent(input$do, {
     input.data <- .read_data(input$datafile)
     if (!any(is.null(input$selected.columns))) {
-      output.data <- fix_date_df(input.data,
+      output.data <- fix_date_df(
+        input.data,
         col.names = input$selected.columns,
         day.impute = as.numeric(input$date.input),
         month.impute = as.numeric(input$month.input)
@@ -363,7 +372,8 @@ fix_date_app <- function(theme = "datefixR") {
       content = function(file) {
         input.data <- .read_data(input$datafile)
         if (!any(is.null(input$selected.columns))) {
-          output.data <- fix_date_df(input.data,
+          output.data <- fix_date_df(
+            input.data,
             col.names = input$selected.columns
           )
         }

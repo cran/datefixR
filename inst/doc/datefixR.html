@@ -12,7 +12,7 @@
 
 
 
-<title>datefixR</title>
+<title>datefixR: Comprehensive Date Standardization Guide</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -48,8 +48,9 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,7 +61,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -336,28 +337,65 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">datefixR</h1>
+<h1 class="title toc-ignore">datefixR: Comprehensive Date
+Standardization Guide</h1>
 
 
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(datefixR)</span></code></pre></div>
-<p>This vignette describes the functionality of <code>datefixR</code> in
-more detail than the <a href="https://github.com/ropensci/datefixR">README</a> file.
-<code>DatefixR</code> is a lightweight package consisting of two main
-user-accessible functions, <code>fix_date_char()</code> and
-<code>fix_date_df()</code>, which converts dates written in different
-formats into R’s built-in <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Dates"><code>Date</code>
-class</a>. The former is designed to modify character vectors whilst the
-latter is intended for modifying columns of a data frame (or tibble).
-<code>fix_date_app()</code> is a third function which allows dates to be
-standardized via a Shiny app interface. You can learn more about the
-Shiny app in its dedicated vignette.</p>
-<p>Practically, this package is most useful when handling date data
-which has been supplied via text boxes (instead of a date-specific input
-with a consistent date format). However, this package may also be useful
-to validate the format of date data (see <a href="#date-and-month-imputation">date and month imputation</a>).</p>
-<div id="usage" class="section level2">
-<h2>Usage</h2>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p><strong>datefixR</strong> is a comprehensive R package designed to
+automatically standardize messy date data into consistent,
+machine-readable formats. Whether you’re dealing with mixed date formats
+from web forms, international datasets, or legacy systems,
+<code>datefixR</code> intelligently parses diverse date representations
+and converts them to R’s standard <code>Date</code> class.</p>
+<div id="key-features" class="section level2">
+<h2>Key Features</h2>
+<ul>
+<li><strong>Smart parsing</strong>: Handles mixed date formats,
+separators, and representations in a single dataset</li>
+<li><strong>Multilingual support</strong>: Recognizes dates in English,
+French, German, Spanish, Portuguese, Russian, Czech, Slovak, and
+Indonesian</li>
+<li><strong>Missing data imputation</strong>: User-controlled behavior
+for incomplete dates (missing days/months)</li>
+<li><strong>Detailed error reporting</strong>: Identifies exactly which
+dates couldn’t be parsed and why</li>
+<li><strong>Excel compatibility</strong>: Supports both R and Excel
+numeric date representations</li>
+<li><strong>Roman numeral support</strong>: Experimental support for
+Roman numeral months</li>
+</ul>
+</div>
+<div id="core-functions" class="section level2">
+<h2>Core Functions</h2>
+<p>The package consists of three main user-accessible functions:</p>
+<ul>
+<li><strong><code>fix_date_char()</code></strong>: Converts character
+vectors of dates</li>
+<li><strong><code>fix_date_df()</code></strong>: Processes date columns
+in data frames or tibbles</li>
+<li><strong><code>fix_date_app()</code></strong>: Interactive Shiny
+application for date cleaning (see dedicated vignette)</li>
+</ul>
+</div>
+<div id="when-to-use-datefixr" class="section level2">
+<h2>When to Use datefixR</h2>
+<p>This package is particularly valuable when:</p>
+<ul>
+<li>Processing dates from free-text web form entries</li>
+<li>Handling international datasets with mixed date formats</li>
+<li>Cleaning legacy data with inconsistent date representations</li>
+<li>Working with Excel imports containing mixed text and numeric
+dates</li>
+<li>Validating and standardizing date data quality</li>
+</ul>
+</div>
+</div>
+<div id="core-workflow" class="section level1">
+<h1>Core Workflow</h1>
 <div id="date-standardization" class="section level3">
 <h3>Date standardization</h3>
 <p>Firstly, we will demonstrate date standardization without imputation.
@@ -477,8 +515,11 @@ but only applies to a single character object.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;01 02 2014&quot;</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2014-02-01&quot;</span></span></code></pre></div>
 </div>
-<div id="localization" class="section level3">
-<h3>Localization</h3>
+</div>
+<div id="advanced-topics" class="section level1">
+<h1>Advanced Topics</h1>
+<div id="localization" class="section level2">
+<h2>Localization</h2>
 <p><code>datefixR</code> currently supports dates being provided in
 English, Français (French), Deutsch (German), español (Spanish), and
 Русский (Russian) by recognizing both names of months in these languages
@@ -498,8 +539,8 @@ argument needing to be specified by the user.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;July 4th, 1776&quot;</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1776-07-04&quot;</span></span></code></pre></div>
 </div>
-<div id="date-and-month-imputation" class="section level3">
-<h3>Date and month imputation</h3>
+<div id="date-and-month-imputation" class="section level2">
+<h2>Date and Month Imputation</h2>
 <p>By default, <code>datefixR</code> imputes missing months as July, and
 missing days of the month as the first day. As such, “1992” converts
 to</p>
@@ -522,8 +563,7 @@ data.</p>
 <code>day.impute</code> or <code>month.impute</code> to <code>NA</code>.
 This will also result in a warning being raised.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1992&quot;</span>, <span class="at">month.impute =</span> <span class="cn">NA</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; Warning: NA imputed (date: 1992)</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span></code></pre></div>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span></code></pre></div>
 <p>Finally, imputation can be prevented by setting
 <code>day.impute</code> or <code>month.impute</code> to
 <code>NULL</code>. This will result in an error being raised if the day
@@ -542,8 +582,8 @@ passed to <code>fix_date_df()</code> for similar functionality.</p>
 <span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt; 2  2 1990-04-01</span></span>
 <span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt; 3  3 2019-03-01</span></span></code></pre></div>
 </div>
-<div id="converting-numeric-dates" class="section level3">
-<h3>Converting numeric dates</h3>
+<div id="converting-numeric-dates" class="section level2">
+<h2>Converting Numeric Dates</h2>
 <p>By default, if a date is given numerically (I.E no separators such as
 “/”, “-”, or white space) and is more than four character long, then
 this date is assumed to have been converted from <code>R</code>’s
@@ -565,8 +605,8 @@ function to rectify this.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;44941&quot;</span>, <span class="at">excel =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-01-15&quot;</span></span></code></pre></div>
 </div>
-<div id="roman-numeral-months-experimental" class="section level3">
-<h3>Roman numeral months <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img role="img" aria-label="Experimental" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTM4IiBoZWlnaHQ9IjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9ImxpZmVjeWNsZTogZXhwZXJpbWVudGFsIj4KICAgIDx0aXRsZT5saWZlY3ljbGU6IGV4cGVyaW1lbnRhbDwvdGl0bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InMiIHgyPSIwIiB5Mj0iMTAwJSI+CiAgICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIiAvPgogICAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8Y2xpcFBhdGggaWQ9InIiPgogICAgICAgIDxyZWN0IHdpZHRoPSIxMzgiIGhlaWdodD0iMjAiIHJ4PSIzIiBmaWxsPSIjZmZmIiAvPgogICAgPC9jbGlwUGF0aD4KICAgIDxnIGNsaXAtcGF0aD0idXJsKCNyKSI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjU1IiBoZWlnaHQ9IjIwIiBmaWxsPSIjNTU1IiAvPgogICAgICAgIDxyZWN0IHg9IjU1IiB3aWR0aD0iODMiIGhlaWdodD0iMjAiIGZpbGw9IiNmZTdkMzciIC8+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjEzOCIgaGVpZ2h0PSIyMCIgZmlsbD0idXJsKCNzKSIgLz4KICAgIDwvZz4KICAgIDxnIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLEdlbmV2YSxEZWphVnUgU2FucyxzYW5zLXNlcmlmIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiBmb250LXNpemU9IjExMCI+CiAgICAgICAgPHRleHQgYXJpYS1oaWRkZW49InRydWUiIHg9IjI4NSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNDUwIj5saWZlY3ljbGU8L3RleHQ+CiAgICAgICAgPHRleHQgeD0iMjg1IiB5PSIxNDAiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiBmaWxsPSIjZmZmIiB0ZXh0TGVuZ3RoPSI0NTAiPmxpZmVjeWNsZTwvdGV4dD4KICAgICAgICA8dGV4dCBhcmlhLWhpZGRlbj0idHJ1ZSIgeD0iOTU1IiB5PSIxNTAiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSI3MzAiPmV4cGVyaW1lbnRhbDwvdGV4dD4KICAgICAgICA8dGV4dCB4PSI5NTUiIHk9IjE0MCIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIGZpbGw9IiNmZmYiIHRleHRMZW5ndGg9IjczMCI+ZXhwZXJpbWVudGFsPC90ZXh0PgogICAgPC9nPgo8L3N2Zz4K" alt="Experimental" /></a></h3>
+<div id="roman-numeral-months-experimental" class="section level2">
+<h2>Roman Numeral Months <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img role="img" aria-label="Experimental" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTM4IiBoZWlnaHQ9IjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9ImxpZmVjeWNsZTogZXhwZXJpbWVudGFsIj4KICAgIDx0aXRsZT5saWZlY3ljbGU6IGV4cGVyaW1lbnRhbDwvdGl0bGU+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InMiIHgyPSIwIiB5Mj0iMTAwJSI+CiAgICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIiAvPgogICAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8Y2xpcFBhdGggaWQ9InIiPgogICAgICAgIDxyZWN0IHdpZHRoPSIxMzgiIGhlaWdodD0iMjAiIHJ4PSIzIiBmaWxsPSIjZmZmIiAvPgogICAgPC9jbGlwUGF0aD4KICAgIDxnIGNsaXAtcGF0aD0idXJsKCNyKSI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjU1IiBoZWlnaHQ9IjIwIiBmaWxsPSIjNTU1IiAvPgogICAgICAgIDxyZWN0IHg9IjU1IiB3aWR0aD0iODMiIGhlaWdodD0iMjAiIGZpbGw9IiNmZTdkMzciIC8+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjEzOCIgaGVpZ2h0PSIyMCIgZmlsbD0idXJsKCNzKSIgLz4KICAgIDwvZz4KICAgIDxnIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLEdlbmV2YSxEZWphVnUgU2FucyxzYW5zLXNlcmlmIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiBmb250LXNpemU9IjExMCI+CiAgICAgICAgPHRleHQgYXJpYS1oaWRkZW49InRydWUiIHg9IjI4NSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNDUwIj5saWZlY3ljbGU8L3RleHQ+CiAgICAgICAgPHRleHQgeD0iMjg1IiB5PSIxNDAiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiBmaWxsPSIjZmZmIiB0ZXh0TGVuZ3RoPSI0NTAiPmxpZmVjeWNsZTwvdGV4dD4KICAgICAgICA8dGV4dCBhcmlhLWhpZGRlbj0idHJ1ZSIgeD0iOTU1IiB5PSIxNTAiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSI3MzAiPmV4cGVyaW1lbnRhbDwvdGV4dD4KICAgICAgICA8dGV4dCB4PSI5NTUiIHk9IjE0MCIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIGZpbGw9IiNmZmYiIHRleHRMZW5ndGg9IjczMCI+ZXhwZXJpbWVudGFsPC90ZXh0PgogICAgPC9nPgo8L3N2Zz4K" alt="Experimental" /></a></h2>
 <p>Oracle Database can use Roman numerals to format months and this
 custom is also used in some biological contexts. If dates in need of
 parsing are in this format, <code>roman.numeral = TRUE</code> can be
@@ -577,29 +617,237 @@ work alongside other date formats.</p>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2019-04-12&quot;</span></span></code></pre></div>
 </div>
 </div>
+<div id="error-edge-case-handling" class="section level1">
+<h1>Error &amp; Edge-Case Handling</h1>
+<p><code>datefixR</code> provides detailed error messages when it
+encounters dates which cannot be parsed. These errors often guide you to
+correct format issues or identify unsupported cases.</p>
+<div id="common-error-examples" class="section level3">
+<h3>Common Error Examples</h3>
+<ul>
+<li><strong>Unsupported Date Parts</strong>: If month names or formats
+aren’t recognized.</li>
+<li><strong>Invalid Date Formats</strong>: Entering purely numeric
+values with unsupported separators.</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">tryCatch</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  {</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>    <span class="fu">fix_date_char</span>(<span class="st">&quot;99-99-9999&quot;</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  },</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;Error:&quot;</span>, e<span class="sc">$</span>message, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>  }</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>)</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co">#&gt; Error: Month not in expected range</span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt; </span></span></code></pre></div>
+</div>
+</div>
+<div id="faq" class="section level1">
+<h1>FAQ</h1>
+<div id="understanding-year-parsing-logic" class="section level2">
+<h2>Understanding Year Parsing Logic</h2>
+<div id="two-digit-vs-four-digit-years" class="section level3">
+<h3>Two-Digit vs Four-Digit Years</h3>
+<p><code>datefixR</code> implements intelligent two-digit year expansion
+using a sliding window approach. The algorithm examines the first digit
+of a two-digit year and compares it to the third digit of the current
+year.</p>
+<p><strong>Algorithm Details:</strong> - If the first digit ≤ current
+year’s third digit: prefix with “20” - If the first digit &gt; current
+year’s third digit: prefix with “19”</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Current year: 2025 (third digit is 2)</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co"># Years 00-25 become 2000-2025</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;01/01/05&quot;</span>) <span class="co"># → 2005-01-01</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;01/01/24&quot;</span>) <span class="co"># → 2024-01-01</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co"># Years 26-99 become 1926-1999</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;06/15/92&quot;</span>) <span class="co"># → 1992-06-15</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;03/10/80&quot;</span>) <span class="co"># → 1980-03-10</span></span></code></pre></div>
+<p><strong>Edge Case Behavior:</strong> As time progresses, this window
+shifts naturally. In 2030, years 00-30 will map to 2000-2030, while
+31-99 map to 1931-1999.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Demonstrating current behavior (as of 2025)</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;01/01/20&quot;</span>, <span class="st">&quot;01/01/24&quot;</span>, <span class="st">&quot;01/01/23&quot;</span>, <span class="st">&quot;01/01/50&quot;</span>, <span class="st">&quot;01/01/99&quot;</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="cf">for</span> (date <span class="cf">in</span> samples) {</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">fix_date_char</span>(date)</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s → %s</span><span class="sc">\n</span><span class="st">&quot;</span>, date, result))</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>}</span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co">#&gt; 01/01/20 → 2020-01-01</span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co">#&gt; 01/01/24 → 2024-01-01</span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="co">#&gt; 01/01/23 → 2023-01-01</span></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co">#&gt; 01/01/50 → 1950-01-01</span></span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#&gt; 01/01/99 → 1999-01-01</span></span></code></pre></div>
+</div>
+</div>
+<div id="automatic-ymd-detection-logic" class="section level2">
+<h2>Automatic YMD Detection Logic</h2>
+<p><code>datefixR</code> uses a sophisticated hierarchy to determine
+date component order:</p>
+<div id="year-first-detection" class="section level3">
+<h3>1. Year-First Detection</h3>
+<p>If the first component is 4 digits, assumes <code>YYYY-MM-DD</code>
+format:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;2023/12/25&quot;</span>) <span class="co"># Automatically detects year-first</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-12-25&quot;</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;1995-04-15&quot;</span>) <span class="co"># Year-first with different separator</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1995-04-15&quot;</span></span></code></pre></div>
+</div>
+<div id="month-name-detection" class="section level3">
+<h3>2. Month Name Detection</h3>
+<p>If the first component is a month name, switches to
+<code>month-day-year</code> format:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;January 15, 2023&quot;</span>) <span class="co"># Month name → MDY</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-01-15&quot;</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;Mar 5 1992&quot;</span>) <span class="co"># Abbreviated month → MDY</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1992-03-05&quot;</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;abril 20 2020&quot;</span>) <span class="co"># Spanish month → MDY</span></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2020-04-20&quot;</span></span></code></pre></div>
+</div>
+<div id="numeric-component-defaults" class="section level3">
+<h3>3. Numeric Component Defaults</h3>
+<p>For purely numeric dates, defaults to <code>day-month-year</code>
+unless overridden:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Default behavior (DMY)</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;15/03/2023&quot;</span>) <span class="co"># → 2023-03-15 (day/month/year)</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-03-15&quot;</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># Override with format parameter</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co"># fix_date_char(&quot;15/03/2023&quot;, format = &quot;mdy&quot;) # → Invalid (month 15)</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;03/15/2023&quot;</span>, <span class="at">format =</span> <span class="st">&quot;mdy&quot;</span>) <span class="co"># → 2023-03-15 (month/day/year)</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-03-15&quot;</span></span></code></pre></div>
+</div>
+<div id="handling-ambiguous-cases" class="section level3">
+<h3>4. Handling Ambiguous Cases</h3>
+<p><code>datefixR</code> cannot resolve truly ambiguous dates without
+explicit format specification:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># Ambiguous: could be March 5th or May 3rd</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;03/05/2023&quot;</span>) <span class="co"># → 2023-05-03 (assumes DMY)</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-05-03&quot;</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;03/05/2023&quot;</span>, <span class="at">format =</span> <span class="st">&quot;mdy&quot;</span>) <span class="co"># → 2023-03-05 (forces MDY)</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-03-05&quot;</span></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="co"># Unambiguous: day &gt; 12 forces correct interpretation</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;15/03/2023&quot;</span>) <span class="co"># → 2023-03-15 (only valid as DMY)</span></span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-03-15&quot;</span></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;03/15/2023&quot;</span>, <span class="at">format =</span> <span class="st">&quot;mdy&quot;</span>) <span class="co"># → 2023-03-15 (only valid as MDY)</span></span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-03-15&quot;</span></span></code></pre></div>
+</div>
+<div id="format-detection-examples" class="section level3">
+<h3>5. Format Detection Examples</h3>
+<p>Here’s how different inputs trigger specific detection logic:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># Year-first detection (4-digit first component)</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>test_dates_ymd <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2023/01/15&quot;</span>, <span class="st">&quot;1999-12-31&quot;</span>, <span class="st">&quot;2020.06.30&quot;</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="cf">for</span> (date <span class="cf">in</span> test_dates_ymd) {</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s → %s (YMD detected)</span><span class="sc">\n</span><span class="st">&quot;</span>, date, <span class="fu">fix_date_char</span>(date)))</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>}</span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="co">#&gt; 2023/01/15 → 2023-01-15 (YMD detected)</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="co">#&gt; 1999-12-31 → 1999-12-31 (YMD detected)</span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co">#&gt; 2020.06.30 → 2020-06-30 (YMD detected)</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a><span class="co"># Month-name detection (text month triggers MDY)</span></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a>test_dates_mdy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;March 15, 2023&quot;</span>, <span class="st">&quot;Dec 25 2020&quot;</span>, <span class="st">&quot;Jan 1st 2000&quot;</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a><span class="cf">for</span> (date <span class="cf">in</span> test_dates_mdy) {</span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s → %s (MDY detected)</span><span class="sc">\n</span><span class="st">&quot;</span>, date, <span class="fu">fix_date_char</span>(date)))</span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a>}</span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a><span class="co">#&gt; March 15, 2023 → 2023-03-15 (MDY detected)</span></span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a><span class="co">#&gt; Dec 25 2020 → 2020-12-25 (MDY detected)</span></span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a><span class="co">#&gt; Jan 1st 2000 → 2000-01-01 (MDY detected)</span></span>
+<span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a><span class="co"># Default numeric (assumes DMY)</span></span>
+<span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a>test_dates_dmy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;15/03/2023&quot;</span>, <span class="st">&quot;01-12-1999&quot;</span>, <span class="st">&quot;25.12.2020&quot;</span>)</span>
+<span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a><span class="cf">for</span> (date <span class="cf">in</span> test_dates_dmy) {</span>
+<span id="cb23-22"><a href="#cb23-22" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%s → %s (DMY default)</span><span class="sc">\n</span><span class="st">&quot;</span>, date, <span class="fu">fix_date_char</span>(date)))</span>
+<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a>}</span>
+<span id="cb23-24"><a href="#cb23-24" tabindex="-1"></a><span class="co">#&gt; 15/03/2023 → 2023-03-15 (DMY default)</span></span>
+<span id="cb23-25"><a href="#cb23-25" tabindex="-1"></a><span class="co">#&gt; 01-12-1999 → 1999-12-01 (DMY default)</span></span>
+<span id="cb23-26"><a href="#cb23-26" tabindex="-1"></a><span class="co">#&gt; 25.12.2020 → 2020-12-25 (DMY default)</span></span></code></pre></div>
+</div>
+</div>
+<div id="overriding-automatic-detection" class="section level2">
+<h2>Overriding Automatic Detection</h2>
+<div id="explicit-format-specification" class="section level3">
+<h3>Explicit Format Specification</h3>
+<p>When automatic detection fails or produces unwanted results, use the
+<code>format</code> parameter:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="co"># Force MDY interpretation</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;01/02/2023&quot;</span>, <span class="at">format =</span> <span class="st">&quot;mdy&quot;</span>) <span class="co"># → 2023-01-02 (Jan 2nd)</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-01-02&quot;</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="fu">fix_date_char</span>(<span class="st">&quot;01/02/2023&quot;</span>, <span class="at">format =</span> <span class="st">&quot;dmy&quot;</span>) <span class="co"># → 2023-02-01 (Feb 1st)</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-02-01&quot;</span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a><span class="co"># Useful for consistently formatted datasets</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a>dates_usa <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;01/15/2023&quot;</span>, <span class="st">&quot;03/22/2023&quot;</span>, <span class="st">&quot;12/01/2023&quot;</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a><span class="fu">lapply</span>(dates_usa, <span class="cf">function</span>(x) <span class="fu">fix_date_char</span>(x, <span class="at">format =</span> <span class="st">&quot;mdy&quot;</span>))</span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-01-15&quot;</span></span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-03-22&quot;</span></span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2023-12-01&quot;</span></span></code></pre></div>
+</div>
+<div id="data-frame-processing" class="section level3">
+<h3>Data Frame Processing</h3>
+<p>The same logic applies to <code>fix_date_df()</code> with consistent
+format specification:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>usa_dates <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="at">event_date =</span> <span class="fu">c</span>(<span class="st">&quot;01/15/2023&quot;</span>, <span class="st">&quot;03/22/2023&quot;</span>, <span class="st">&quot;12/01/2023&quot;</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>)</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="co"># Apply consistent MDY format</span></span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>fixed_usa <span class="ot">&lt;-</span> <span class="fu">fix_date_df</span>(usa_dates, <span class="st">&quot;event_date&quot;</span>, <span class="at">format =</span> <span class="st">&quot;mdy&quot;</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(fixed_usa)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">event_date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">2023-01-15</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">2023-03-22</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">2023-12-01</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="citation" class="section level2">
 <h2>Citation</h2>
 <p>If you use this package in your research, please consider citing
 <code>datefixR</code>. An up-to-date citation can be obtained by
 running</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;datefixR&quot;</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co">#&gt; To cite package &#39;datefixR&#39; in publications use:</span></span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#&gt;   Constantine-Cooke N (2023). _datefixR: Standardize Dates in Different</span></span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">#&gt;   Formats or with Missing Data_. doi:10.5281/zenodo.5655311</span></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co">#&gt;   &lt;https://doi.org/10.5281/zenodo.5655311&gt;, R package version 1.7.0,</span></span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co">#&gt;   &lt;https://CRAN.R-project.org/package=datefixR&gt;.</span></span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt;     title = {{datefixR}: Standardize Dates in Different Formats or with Missing Data},</span></span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt;     author = {Nathan Constantine-Cooke},</span></span>
-<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt;     year = {2023},</span></span>
-<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 1.7.0},</span></span>
-<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt;     doi = {10.5281/zenodo.5655311},</span></span>
-<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=datefixR},</span></span>
-<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;datefixR&quot;</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="co">#&gt; To cite package &#39;datefixR&#39; in publications use:</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="co">#&gt;   Constantine-Cooke N (2025). _datefixR: Standardize Dates in Different</span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="co">#&gt;   Formats or with Missing Data_. doi:10.5281/zenodo.5655311</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="co">#&gt;   &lt;https://doi.org/10.5281/zenodo.5655311&gt;, R package version 2.0.0,</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="co">#&gt;   &lt;https://CRAN.R-project.org/package=datefixR&gt;.</span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="co">#&gt;     title = {{datefixR}: Standardize Dates in Different Formats or with Missing Data},</span></span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="co">#&gt;     author = {Nathan Constantine-Cooke},</span></span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a><span class="co">#&gt;     year = {2025},</span></span>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 2.0.0},</span></span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a><span class="co">#&gt;     doi = {10.5281/zenodo.5655311},</span></span>
+<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=datefixR},</span></span>
+<span id="cb26-18"><a href="#cb26-18" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+</div>
 </div>
 
 

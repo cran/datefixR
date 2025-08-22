@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Using the datefixR Shiny App</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using the datefixR Shiny App</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(datefixR)</span></code></pre></div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The <code>datefixR</code> package provides a user-friendly Shiny app
+that allows users to standardize messy date data using a graphical user
+interface (GUI). This is particularly useful for researchers, data
+analysts, and anyone working with datasets containing inconsistently
+formatted dates who prefer not to use R code directly.</p>
+<p>The app supports the same powerful date parsing capabilities as the
+core <code>datefixR</code> functions, including:</p>
+<ul>
+<li>Multiple date formats and separators</li>
+<li>International month names in 9 languages</li>
+<li>Custom imputation strategies for missing date components</li>
+<li>Excel and CSV file processing</li>
+<li>Batch processing of multiple date columns</li>
+</ul>
+</div>
+<div id="installation-and-setup" class="section level2">
+<h2>Installation and Setup</h2>
+<div id="prerequisites" class="section level3">
+<h3>Prerequisites</h3>
+<p>The Shiny app requires additional dependencies that are not installed
+automatically with <code>datefixR</code>. This design choice allows the
+core package to be installed on secure systems where these packages
+might not be permitted.</p>
+<p>Required dependencies: - <code>DT</code> - for interactive data
+tables - <code>shiny</code> - for the web application framework -
+<code>readxl</code> - for reading Excel files - <code>htmltools</code> -
+for HTML generation</p>
+</div>
+<div id="launching-the-app" class="section level3">
+<h3>Launching the App</h3>
+<p>To start the app, simply run:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">fix_date_app</span>()</span></code></pre></div>
+<p>If any required dependencies are missing, the app will detect this
+and offer to install them automatically.</p>
+</div>
+<div id="theme-options" class="section level3">
+<h3>Theme Options</h3>
+<p>The app supports two visual themes:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Default datefixR theme (recommended)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">fix_date_app</span>(<span class="at">theme =</span> <span class="st">&quot;datefixR&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Standard Shiny theme</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">fix_date_app</span>(<span class="at">theme =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="step-by-step-usage-guide" class="section level2">
+<h2>Step-by-Step Usage Guide</h2>
+<div id="file-upload" class="section level3">
+<h3>1. File Upload</h3>
+<ul>
+<li>Click the <strong>Browse</strong> button in the left sidebar</li>
+<li>Select either a CSV (.csv) or Excel (.xlsx) file</li>
+<li>The file will be automatically uploaded and processed</li>
+<li>Click <strong>Refresh</strong> to display the uploaded data</li>
+</ul>
+</div>
+<div id="column-selection" class="section level3">
+<h3>2. Column Selection</h3>
+<p>After uploading your file:</p>
+<ul>
+<li>Review the data in the <strong>Results</strong> tab</li>
+<li>In the left sidebar, check boxes will appear for each column</li>
+<li>Select the columns containing date data that need to be
+standardized</li>
+<li>Multiple columns can be selected simultaneously</li>
+</ul>
+</div>
+<div id="imputation-settings" class="section level3">
+<h3>3. Imputation Settings</h3>
+<p>Configure how missing date components should be handled:</p>
+<div id="day-of-month-imputation" class="section level4">
+<h4>Day of Month Imputation</h4>
+<ul>
+<li><strong>Options</strong>: 1-28, or NA</li>
+<li><strong>Default</strong>: 1 (first day of month)</li>
+<li><strong>Purpose</strong>: What day to use when only month/year are
+provided</li>
+</ul>
+</div>
+<div id="month-imputation" class="section level4">
+<h4>Month Imputation</h4>
+<ul>
+<li><strong>Options</strong>: 1-12, or NA</li>
+<li><strong>Default</strong>: 7 (July)</li>
+<li><strong>Purpose</strong>: What month to use when only year is
+provided</li>
+</ul>
+</div>
+<div id="format-assumption" class="section level4">
+<h4>Format Assumption</h4>
+<ul>
+<li><strong>Options</strong>: “dmy” (day-month-year) or “mdy”
+(month-day-year)</li>
+<li><strong>Default</strong>: “dmy”</li>
+<li><strong>Purpose</strong>: How to interpret ambiguous numeric dates
+like “01/02/2023”</li>
+</ul>
+</div>
+</div>
+<div id="processing-and-review" class="section level3">
+<h3>4. Processing and Review</h3>
+<ul>
+<li>Click <strong>Refresh</strong> after selecting columns and setting
+preferences</li>
+<li>The processed data will appear in the <strong>Results</strong>
+tab</li>
+<li>Review the standardized dates to ensure they meet your
+expectations</li>
+<li>All date columns will now be in YYYY-MM-DD format</li>
+</ul>
+</div>
+<div id="download-results" class="section level3">
+<h3>5. Download Results</h3>
+<ul>
+<li>Click the <strong>Download</strong> button to save your processed
+data</li>
+<li>The file will be saved as “fixed.csv”</li>
+<li>All selected date columns will be standardized in the output</li>
+</ul>
+</div>
+</div>
+<div id="advanced-features" class="section level2">
+<h2>Advanced Features</h2>
+<div id="file-format-support" class="section level3">
+<h3>File Format Support</h3>
+<p>The app automatically detects and handles:</p>
+<ul>
+<li><strong>CSV files</strong>: Comma-separated values with automatic
+encoding detection</li>
+<li><strong>Excel files</strong>: Both .xlsx and .xls formats, reads the
+first worksheet</li>
+</ul>
+</div>
+<div id="error-handling" class="section level3">
+<h3>Error Handling</h3>
+<p>If the app encounters problematic dates:</p>
+<ul>
+<li>Error messages will appear in the R console</li>
+<li>The problematic row and date value will be identified</li>
+<li>Processing will stop, allowing you to review and correct the
+data</li>
+</ul>
+</div>
+<div id="data-privacy" class="section level3">
+<h3>Data Privacy</h3>
+<p><strong>Important Security Note</strong>: When using online hosting
+platforms (like shinyapps.io), your uploaded files are temporarily
+stored on the hosting platform’s servers. While no data should be stored
+persistently, use discretion with sensitive data. For maximum security,
+run the app locally.</p>
+</div>
+</div>
+<div id="example-workflow" class="section level2">
+<h2>Example Workflow</h2>
+<p>Here’s a complete example of using the app:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Prepare your data</strong>: Create a CSV file with messy
+dates</p>
+<pre><code>id,event_date,follow_up
+1,&quot;02/03/21&quot;,&quot;April 2021&quot;
+2,&quot;15-Dec-2020&quot;,&quot;2021&quot;
+3,&quot;2020/05/01&quot;,&quot;May 15 2021&quot;</code></pre></li>
+<li><p><strong>Launch and configure</strong>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">fix_date_app</span>()</span></code></pre></div></li>
+<li><p><strong>Upload and process</strong>:</p>
+<ul>
+<li>Upload your CSV file</li>
+<li>Select “event_date” and “follow_up” columns</li>
+<li>Set day imputation to 15, month imputation to 6</li>
+<li>Click Refresh</li>
+</ul></li>
+<li><p><strong>Download results</strong>: Clean, standardized date data
+ready for analysis</p></li>
+</ol>
+</div>
+<div id="troubleshooting" class="section level2">
+<h2>Troubleshooting</h2>
+<div id="common-issues" class="section level3">
+<h3>Common Issues</h3>
+<p><strong>App won’t start</strong>: - Ensure all dependencies are
+installed - Try running
+<code>install.packages(c(&quot;DT&quot;, &quot;shiny&quot;, &quot;readxl&quot;, &quot;htmltools&quot;))</code></p>
+<p><strong>File won’t upload</strong>: - Check file format (only .csv
+and .xlsx supported) - Ensure file size is reasonable (&lt; 100MB
+recommended) - Verify file isn’t corrupted</p>
+<p><strong>Dates not parsing correctly</strong>: - Review your format
+assumption (dmy vs mdy) - Check for unusual date formats in your data -
+Consider pre-cleaning obviously problematic entries</p>
+<p><strong>Download not working</strong>: - Ensure you’ve selected at
+least one date column - Try refreshing the processed data first - Check
+browser download settings</p>
+</div>
+</div>
+<div id="performance-considerations" class="section level2">
+<h2>Performance Considerations</h2>
+<ul>
+<li><strong>File Size</strong>: The app handles files up to several
+thousand rows efficiently</li>
+<li><strong>Processing Time</strong>: Complex date parsing may take a
+few seconds for large datasets</li>
+<li><strong>Memory Usage</strong>: Keep file sizes reasonable (&lt;
+100MB) for optimal performance</li>
+</ul>
+<p>For the latest updates and to report issues, visit the <a href="https://github.com/ropensci/datefixR">datefixR GitHub
+repository</a>.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

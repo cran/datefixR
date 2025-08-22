@@ -1,6 +1,7 @@
 Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
-Version: 1.7.0
+Version: 2.0.0
+Maintainer: Nathan Constantine-Cooke <nathan.constantine-cooke@ed.ac.uk>
 Authors@R: c(
     person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4437-8713")),
@@ -33,12 +34,11 @@ License: GPL (>= 3)
 URL: https://docs.ropensci.org/datefixR/,
         https://github.com/ropensci/datefixR
 BugReports: https://github.com/ropensci/datefixR/issues
-Depends: R (>= 4.1.0)
-Imports: lifecycle, Rcpp, rlang, stringr
-Suggests: DT, htmltools, knitr, parsedate, pkgbuild, png, readr,
-        readxl, rmarkdown, shiny, shinytest2, spelling, testthat (>=
-        3.0.0), withr
-LinkingTo: Rcpp
+Depends: R (>= 4.2)
+Imports: lifecycle, rlang
+Suggests: DT, future, future.apply, htmltools, knitr, parsedate,
+        pkgbuild, png, readr, readxl, rmarkdown, shiny, shinytest2,
+        spelling, testthat (>= 3.0.0), withr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Config/testthat/parallel: true
@@ -46,20 +46,25 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 RoxygenNote: 7.3.2
+Config/rextendr/version: 0.4.1
+SystemRequirements: Cargo (Rust's package manager), rustc
 NeedsCompilation: yes
-Packaged: 2024-09-08 14:08:49 UTC; s1961592
-Author: Nathan Constantine-Cooke [aut, cre]
-    (<https://orcid.org/0000-0002-4437-8713>),
+Packaged: 2025-08-22 10:32:39 UTC; nconsta2
+Author: Nathan Constantine-Cooke [aut, cre] (ORCID:
+    <https://orcid.org/0000-0002-4437-8713>),
   Jonathan Kitt [ctb, trl],
-  Antonio J. Pérez-Luque [ctb, trl]
-    (<https://orcid.org/0000-0002-1747-0469>),
-  Daniel Possenriede [ctb, trl] (<https://orcid.org/0000-0002-6738-9845>),
+  Antonio J. Pérez-Luque [ctb, trl] (ORCID:
+    <https://orcid.org/0000-0002-1747-0469>),
+  Daniel Possenriede [ctb, trl] (ORCID:
+    <https://orcid.org/0000-0002-6738-9845>),
   Michal Lauer [ctb, trl],
-  Kaique dos S. Alves [rev] (<https://orcid.org/0000-0001-9187-0252>),
-  Al-Ahmadgaid B. Asaad [rev] (<https://orcid.org/0000-0003-3784-8593>),
-  Anatoly Tsyplenkov [ctb, trl] (<https://orcid.org/0000-0003-4144-8402>),
-  Chitra M. Saraswati [ctb, trl]
-    (<https://orcid.org/0000-0002-8159-0414>)
-Maintainer: Nathan Constantine-Cooke <nathan.constantine-cooke@ed.ac.uk>
+  Kaique dos S. Alves [rev] (ORCID:
+    <https://orcid.org/0000-0001-9187-0252>),
+  Al-Ahmadgaid B. Asaad [rev] (ORCID:
+    <https://orcid.org/0000-0003-3784-8593>),
+  Anatoly Tsyplenkov [ctb, trl] (ORCID:
+    <https://orcid.org/0000-0003-4144-8402>),
+  Chitra M. Saraswati [ctb, trl] (ORCID:
+    <https://orcid.org/0000-0002-8159-0414>)
 Repository: CRAN
-Date/Publication: 2024-09-08 14:20:02 UTC
+Date/Publication: 2025-08-22 10:50:08 UTC

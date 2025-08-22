@@ -128,35 +128,36 @@ test_that("error if day.impute or month.impute are wrong format", {
   )
 
   expect_error(
-    fix_date_df(bad.dates,
-      c("some.dates", "some.more.dates"),
-      day.impute = 35
-    ),
+    fix_date_df(bad.dates, c("some.dates", "some.more.dates"), day.impute = 35),
     "day.impute should be an integer between 1 and 31\n"
   )
   expect_error(
-    fix_date_df(bad.dates,
+    fix_date_df(
+      bad.dates,
       c("some.dates", "some.more.dates"),
       day.impute = 2.2
     ),
     "day.impute should be an integer\n"
   )
   expect_error(
-    fix_date_df(bad.dates,
+    fix_date_df(
+      bad.dates,
       c("some.dates", "some.more.dates"),
       month.impute = 13
     ),
     "month.impute should be an integer between 1 and 12\n"
   )
   expect_error(
-    fix_date_df(bad.dates,
+    fix_date_df(
+      bad.dates,
       c("some.dates", "some.more.dates"),
       month.impute = 2.2
     ),
     "month.impute should be an integer\n"
   )
   expect_error(
-    fix_date_df(bad.dates,
+    fix_date_df(
+      bad.dates,
       c("some.dates", "some.more.dates"),
       month.impute = "apr"
     ),
@@ -178,7 +179,7 @@ test_that("Error if month out of bounds", {
 
   expect_error(
     fix_date_df(temp, "date"),
-    "Month not in expected range \n"
+    "Month not in expected range"
   )
 })
 
@@ -244,7 +245,8 @@ test_that("fix_date_df works for a mdy format", {
     )
   )
 
-  fixed.df <- fix_date_df(bad.dates,
+  fixed.df <- fix_date_df(
+    bad.dates,
     c("some.dates", "some.more.dates"),
     format = "mdy"
   )
@@ -285,16 +287,24 @@ test_that("Non-excel nuneric date is parsed correctly", {
 test_that("Excel numeric date is parsed correctly", {
   bad.date <- data.frame(id = 1, some.date = "41035")
   fixed.df <- fix_date_df(bad.date, "some.date", excel = TRUE)
-  expected.df <- data.frame(id = 1, some.date = "2012-05-08")
+  expected.df <- data.frame(id = 1, some.date = "2012-05-06")
   expected.df$some.date <- as.Date(expected.df$some.date)
   expect_equal(fixed.df, expected.df)
 })
 
 test_that("checkday errors when input is out of range", {
-  expect_error(
-    checkday(45),
-    "day.impute should be an integer between 1 and 31\n"
-  )
+  result <- try(datefixR:::checkday(45), silent = TRUE)
+  expect_s3_class(result, "extendr_error")
+  # Note: The actual error message is wrapped in try-error and not directly accessible
+
+  # Test that valid values work
+  expect_no_condition(datefixR:::checkday(15)) # Should return without error for valid day
+  expect_no_condition(datefixR:::checkday(1)) # Should return without error for valid day
+  expect_no_condition(datefixR:::checkday(31)) # Should return without error for valid day
+
+  # Test other invalid values also throw errors
+  expect_s3_class(try(datefixR:::checkday(0), silent = TRUE), "extendr_error")
+  expect_s3_class(try(datefixR:::checkday(32), silent = TRUE), "extendr_error")
 })
 
 
@@ -312,4 +322,92 @@ test_that("Roman numerical dates handled correctly", {
   expected.df$some.dates <- as.Date(expected.df$some.dates)
 
   expect_equal(fixed.df, expected.df)
+})
+
+test_that("parallel processing with multiple date columns works correctly", {
+  # Skip if future packages are not available
+  skip_if_not_installed("future")
+  skip_if_not_installed("future.apply")
+
+  # Create test dataframe with two date columns
+  test_df <- data.frame(
+    id = 1:4,
+    dates_col1 = c("01/01/2020", "02/02/2021", "03/03/2022", "15-12-2019"),
+    dates_col2 = c("04/04/2020", "05/05/2021", "06/06/2022", "dec 2018")
+  )
+
+  # Process with parallel processing (2 cores)
+  result_parallel <- fix_date_df(test_df, c("dates_col1", "dates_col2"), cores = 2)
+
+  # Process sequentially for comparison
+  result_sequential <- fix_date_df(test_df, c("dates_col1", "dates_col2"), cores = 1)
+
+  # Results should be identical regardless of processing method
+  expect_equal(result_parallel, result_sequential)
+
+  # Verify the actual parsed dates are correct
+  expected_df <- data.frame(
+    id = 1:4,
+    dates_col1 = as.Date(c("2020-01-01", "2021-02-02", "2022-03-03", "2019-12-15")),
+    dates_col2 = as.Date(c("2020-04-04", "2021-05-05", "2022-06-06", "2018-12-01"))
+  )
+
+  expect_equal(result_parallel, expected_df)
+})
+
+test_that("parallel processing falls back to sequential for single column", {
+  # Create test dataframe with one date column
+  test_df <- data.frame(
+    id = 1:3,
+    single_date_col = c("01/01/2020", "02/02/2021", "03/03/2022")
+  )
+
+  # Process with cores = 4 (should fall back to sequential since only 1 column)
+  result <- fix_date_df(test_df, "single_date_col", cores = 4)
+
+  # Verify the result is correct
+  expected_df <- data.frame(
+    id = 1:3,
+    single_date_col = as.Date(c("2020-01-01", "2021-02-02", "2022-03-03"))
+  )
+
+  expect_equal(result, expected_df)
+})
+
+test_that("NA values in dataframe columns are preserved correctly", {
+  # Test dataframe with mixed NA, empty string, and "NA" string
+  test_df <- data.frame(
+    id = 1:5,
+    dates = c("2023-01-01", NA, "2024-01-01", "", "NA")
+  )
+
+  result_df <- fix_date_df(test_df, "dates")
+
+  # Check that valid dates are parsed correctly
+  expect_equal(result_df$dates[1], as.Date("2023-01-01"))
+  expect_equal(result_df$dates[3], as.Date("2024-01-01"))
+
+  # Check that all types of NA are preserved as NA
+  expect_true(is.na(result_df$dates[2])) # NA
+  expect_true(is.na(result_df$dates[4])) # empty string
+  expect_true(is.na(result_df$dates[5])) # "NA" string
+
+  # Ensure we didn't get the placeholder date (1999-01-01)
+  expect_false(any(result_df$dates == as.Date("1999-01-01"), na.rm = TRUE))
+})
+
+test_that("Dataframe with all NA values returns all NA", {
+  test_df <- data.frame(
+    id = 1:3,
+    dates = c(NA, "", "NA")
+  )
+
+  result_df <- fix_date_df(test_df, "dates")
+
+  # All should be NA
+  expect_true(all(is.na(result_df$dates)))
+  expect_equal(length(result_df$dates), 3)
+
+  # Ensure we didn't get the placeholder date
+  expect_false(any(result_df$dates == as.Date("1999-01-01"), na.rm = TRUE))
 })

@@ -1,5 +1,35 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# datefixR 2.0.0
+
+## Major changes
+
+* **Performance enhancement**: Date parsing is now over 300x faster than
+  previous versions through Rust implementations, fastpath optimizations for
+  common date formats, and parallel processing of columns in data frames. 
+* **Vignettes**: New vignettes added to demonstrate localization support and
+  the built-in Shiny app.
+
+## Code changes
+
+* Core date parsing logic completely rewritten in Rust for optimal efficiency
+  and memory safety.
+* Fastpath optimization implemented for common date formats, further improving
+  performance.
+* parallelism support in `fix_date_df()` via the `cores` argument and `'Ncpus'`
+  global option. This allows columns in data frames to be processed in parallel,
+  allowing for faster processing of large datasets.
+* Improved error handling and memory management through Rust's type system.
+* First deprecated in version 1.0.0 (July 18, 2022), `fix_date()` and
+  `fix_dates()` have now been removed. Users should use `fix_date_char()` and
+  `fix_date_df()` instead..
+
+## Documentation
+
+* Updated documentation to reflect Rust implementation and performance improvements.
+* Performance benchmarks updated to reflect 300x+ speed improvements.
+* Vignettes added describing localization support and the built-in Shiny app.
+
 # datefixR 1.7.0
 
 * Indonesian translations and months have been added thanks to Chitra M
@@ -94,10 +124,10 @@ tests. See [#57](https://github.com/ropensci/datefixR/pull/57).
 
 ## Documentation
 
-- Now discuss more R packages similar to `datefixR` in README
-- Warnings and errors have been translated to German thanks to Daniel
+* Now discuss more R packages similar to `datefixR` in README
+* Warnings and errors have been translated to German thanks to Daniel
   Possenriede (@dpprdan on GitHub)
-- Fixes typo in README for the German language (now "Deutsch") 
+* Fixes typo in README for the German language (now "Deutsch") 
 
 # datefixR 1.2.0
 

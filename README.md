@@ -7,54 +7,88 @@
 
 | Usage                                                                                                                                                                    | Release                                                                                                                                          | Development                                                                                                                                                                                            | Translation Status                                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
-| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                                                                            | [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)                             | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions)                                                                         | [![German localization](https://gitlocalize.com/repo/8364/de/badge.svg)](https://gitlocalize.com/repo/8364/de?utm_source=badge)     |
-| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/license/gpl-3-0)                                                         | [![datefixR status badge](https://ropensci.r-universe.dev/badges/datefixR)](https://ropensci.r-universe.dev/datefixR)                            | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![Spanish localization](https://gitlocalize.com/repo/8364/es/badge.svg)](https://gitlocalize.com/repo/8364/es?utm_source=badge)    |
-| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR)                                    | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)                                        | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://app.codecov.io/gh/ropensci/datefixR)                                                        | [![French localization](https://gitlocalize.com/repo/8364/fr/badge.svg)](https://gitlocalize.com/repo/8364/fr?utm_source=badge)     |
-| ![website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fdocs.ropensci.org%2FdatefixR%2F) | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org)                                                            | [![Indonesian localization](https://gitlocalize.com/repo/8364/id/badge.svg)](https://gitlocalize.com/repo/8364/id?utm_source=badge) |
-|                                                                                                                                                                          |                                                                                                                                                  |                                                                                                                                                                                                        | [![Russian localization](https://gitlocalize.com/repo/8364/ru/badge.svg)](https://gitlocalize.com/repo/8364/ru?utm_source=badge)    |
+| ![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)                                                                            | [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/datefixR)](https://cran.r-project.org/package=datefixR)                             | ![Rust language](https://img.shields.io/badge/Rust-D34516?style=for-the-badge&logo=rust&logoColor=#E57324)                                                                                             | [![German localization](https://gitlocalize.com/repo/8364/de/badge.svg)](https://gitlocalize.com/repo/8364/de?utm_source=badge)     |
+| [![License: GPL-3](https://img.shields.io/badge/License-GPL3-green.svg)](https://opensource.org/license/gpl-3-0)                                                         | [![datefixR status badge](https://ropensci.r-universe.dev/badges/datefixR)](https://ropensci.r-universe.dev/datefixR)                            | [![R build status](https://github.com/ropensci/datefixR/workflows/CI/badge.svg)](https://github.com/ropensci/datefixR/actions)                                                                         | [![Spanish localization](https://gitlocalize.com/repo/8364/es/badge.svg)](https://gitlocalize.com/repo/8364/es?utm_source=badge)    |
+| [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/datefixR?color=blue)](https://r-pkg.org/pkg/datefixR)                                    | [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5655311.svg)](https://doi.org/10.5281/zenodo.5655311)                                        | [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) | [![French localization](https://gitlocalize.com/repo/8364/fr/badge.svg)](https://gitlocalize.com/repo/8364/fr?utm_source=badge)     |
+| ![website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fdocs.ropensci.org%2FdatefixR%2F) | [![Status at rOpenSci Software Peer Review](https://badges.ropensci.org/533_status.svg)](https://github.com/ropensci/software-review/issues/533) | [![codecov](https://codecov.io/gh/ropensci/datefixR/branch/main/graph/badge.svg?token=zycOVwlq1m)](https://app.codecov.io/gh/ropensci/datefixR)                                                        | [![Indonesian localization](https://gitlocalize.com/repo/8364/id/badge.svg)](https://gitlocalize.com/repo/8364/id?utm_source=badge) |
+|                                                                                                                                                                          |                                                                                                                                                  | [![Tidyverse style guide](https://img.shields.io/static/v1?label=Code%20Style&message=Tidyverse&color=1f1c30)](https://style.tidyverse.org)                                                            | [![Russian localization](https://gitlocalize.com/repo/8364/ru/badge.svg)](https://gitlocalize.com/repo/8364/ru?utm_source=badge)    |
 
 <!-- badges: end -->
 
-`datefixR` standardizes dates in different formats or with missing data:
-for example dates which have been provided from free text web forms.
+**`datefixR` is an R package that automatically standardizes messy date
+data into consistent, machine-readable formats.** Whether you’re dealing
+with free-text web form entries like “02 05 92”, “2020-may-01”, or “le 3
+mars 2013”, `datefixR` intelligently parses diverse date formats and
+converts them to R’s standard Date class. Under the hood, `datefixR`
+uses Rust for fast and memory-safe parsing.
 
-There are many different formats dates are commonly represented with:
-the order of day, month, or year can differ, different separators (“-”,
-“/”, “.”, or whitespace) can be used, months can be numerical, names,
-or abbreviations and year given as two digits or four. `datefixR` takes
-dates in all these different formats and converts them to R’s built-in
-date class. If `datefixR` cannot standardize a date, such as because it
-is too malformed, then the user is told which date cannot be
-standardized and the corresponding ID for the row. `datefixR` also
-allows the imputation of missing days and months with user-controlled
-behavior.
+**Key features:**
+
+  - **Smart parsing**: Handles mixed date formats, separators, and
+    representations in a single dataset.
+  - **Multilingual support**: Recognizes dates in English, French,
+    German, Spanish, Indonesian, and Russian.
+  - **Missing data imputation**: User-controlled behavior for incomplete
+    dates (missing days/months).
+  - **Error reporting**: If a date cannot be parsed, the user is
+    informed of the provided date and associated row ID, allowing for
+    easier debugging and correction.
+  - **Excel compatibility**: Supports both R and Excel numeric date
+    representations.
+  - **Shiny integration**: Interactive web app for data exploration and
+    cleaning. <br>
 
 <img src="man/figures/example.svg" width="800"/>
 
-`datefixR` also supports dates provided in different languages and
-provides translated warning and error messages. The following languages
-are currently supported:
+## Quick Start
 
-  - English
-  - Français (French)
-  - Deutsch (German)
-  - español (Spanish)
-  - Bahasa Indonesia (Indonesian)
-  - Pусский (Russian)
+Here’s a simple example showing how `datefixR` cleans messy date data:
 
-Not familiar with R or want to quickly try out `datefixR`? Check out the
-shiny app [here](https://nathansam.shinyapps.io/datefixr/).
+``` r
+library(datefixR)
 
-## Installation instructions
+# Create some messy date data
+messy_dates <- c("02/05/92", "2020-may-01", "le 3 mars 2013", "1996")
+messy_df <- data.frame(id = 1:4, dates = messy_dates)
+print(messy_df)
+#>   id          dates
+#> 1  1       02/05/92
+#> 2  2    2020-may-01
+#> 3  3 le 3 mars 2013
+#> 4  4           1996
 
-`datefixR` is now available on CRAN.
+# Clean the dates
+clean_dates <- fix_date_char(messy_dates) # Clean a character vector
+clean_df <- fix_date_df(messy_df, "dates") # Clean a column of a dataframe
+print(clean_df)
+#>   id      dates
+#> 1  1 1992-05-02
+#> 2  2 2020-05-01
+#> 3  3 2013-03-03
+#> 4  4 1996-07-01
+```
+
+The package automatically standardizes dates in different formats (named
+months, various separators, incomplete dates) into R’s standard
+`yyyy-mm-dd` format. When dates are partially missing (like the day or
+month), they can be imputed. Whilst imputation defaults to July 1st for
+incomplete dates, this behaviour can be changed including the prevention
+of any imputation.
+
+## Installation
+
+### Stable Release (Recommended)
+
+`datefixR` is available on CRAN:
 
 ``` r
 install.packages("datefixR")
 ```
 
-The most up-to-date (hopefully) stable version of `datefixR` can be
-installed via [r-universe](https://r-universe.dev/search)
+### Latest Stable (r-universe)
+
+For the most up-to-date stable version via
+[r-universe](https://r-universe.dev/search):
 
 ``` r
 # Enable universe(s) by ropensci
@@ -66,13 +100,7 @@ options(repos = c(
 install.packages("datefixR")
 ```
 
-If you wish to live on the cutting edge of `datefixR` development, then
-the development version can be installed via
-
-``` r
-if (!require("remotes")) install.packages("remotes")
-remotes::install_github("ropensci/datefixR", "devel")
-```
+## Getting Started
 
 ## Package vignette
 
@@ -87,14 +115,51 @@ browseVignettes("datefixR")
 or visiting the vignette on the [package
 website](https://docs.ropensci.org/datefixR/articles/datefixR.html)
 
+Additional vignettes are available describing `datefixR`’s localization
+features and how to use the Shiny app.
+
 ## Usage
 
-`datefixR` is most commonly used to standardize columns of date data in
-a data frame or tibble. For this demonstration, we will use an example
-toy dataset provided alongside the package, `exampledates`.
+`datefixR` provides flexible date standardization capabilities across
+different data structures and formats. This section demonstrates various
+use cases with practical examples.
+
+### Character Vector Cleaning
+
+The most basic use case involves cleaning a character vector of messy
+dates using `fix_date_char()`:
 
 ``` r
 library(datefixR)
+
+# Mixed format dates
+messy_dates <- c(
+  "02/05/92", # US format, 2-digit year
+  "2020-may-01", # ISO with named month
+  "le 3 mars 2013", # French format
+  "1996", # Year only
+  "22.07.1977", # European format
+  "jan 2020" # Month-year only
+)
+
+# Clean all dates at once
+clean_dates <- fix_date_char(messy_dates)
+print(clean_dates)
+#> [1] "1992-05-02" "2020-05-01" "2013-03-03" "1996-07-01" "1977-07-22"
+#> [6] "2020-01-01"
+```
+
+This function automatically handles various separators (“-”, “/”, “.”,
+spaces), different date orders, named months in multiple languages, and
+incomplete dates.
+
+### Data Frame Cleaning
+
+For structured data, use `fix_date_df()` to clean multiple date columns
+simultaneously:
+
+``` r
+# Load example dataset
 data("exampledates")
 knitr::kable(exampledates)
 ```
@@ -109,13 +174,11 @@ knitr::kable(exampledates)
 | 6  | le 3 mars 2013          | 22.07.1977      |
 | 7  | 7 de septiembre de 2014 | 13821           |
 
-We can standardize these date columns by using the `fix_date_df()`
-function and passing the data frame/tibble object and a character vector
-of column names for the corresponding columns to fix.
-
 ``` r
-fixed.df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
-knitr::kable(fixed.df)
+
+# Fix multiple columns
+fixed_df <- fix_date_df(exampledates, c("some.dates", "some.more.dates"))
+knitr::kable(fixed_df)
 ```
 
 | id | some.dates | some.more.dates |
@@ -128,32 +191,129 @@ knitr::kable(fixed.df)
 | 6  | 2013-03-03 | 1977-07-22      |
 | 7  | 2014-09-07 | 2007-11-04      |
 
-By default, `datefixR` imputes missing days of the month as 01, and
-missing months as 07 (July). However, this behavior can be modified via
-the `day.impute` or `month.impute` arguments.
+The function preserves non-date columns and provides detailed error
+reporting if any dates fail to parse.
+
+### Excel Serial Numbers
+
+`datefixR` supports both R and Excel numeric date representations:
 
 ``` r
-example.df <- data.frame(example = "1994")
+# R serial dates (days since 1970-01-01)
+r_serial <- "19539" # Represents 2023-07-01
+fix_date_char(r_serial)
+#> [1] "2023-07-01"
 
-fix_date_df(example.df, "example", month.impute = 1)
-#>      example
-#> 1 1994-01-01
+# Excel serial dates (days since 1900-01-01, accounting for Excel's leap year bug)
+excel_serial <- "45108" # Also represents 2023-07-01
+fix_date_char(excel_serial, excel = TRUE)
+#> [1] "2023-07-01"
+
+# Mixed serial and text dates
+mixed_dates <- c("45108", "2023-07-01", "july 1 2023")
+fix_date_char(mixed_dates, excel = TRUE)
+#> [1] "2023-07-01" "2023-07-01" "2023-07-01"
 ```
 
-Functions in `datefixR` assume day-first instead of month-first when
-day, month, and year are all given (unless year is given first). However
-this behavior can be modified by passing `format = "mdy"` to function
-calls.
+This is particularly useful when importing data from Excel spreadsheets
+where dates may have been converted to serial numbers.
 
-Numeric representations of dates, as used by either Excel or by R, are
-also supported.
+### MDY vs DMY Detection
+
+By default, `datefixR` assumes day-first (DMY) over month-first format
+when the date order is ambiguous. However, you can specify month-first
+(MDY) format:
 
 ``` r
-fix_date_char("19539")
-#> [1] "2023-07-01"
-fix_date_char("45108", excel = TRUE)
-#> [1] "2023-07-01"
+# Ambiguous dates that could be interpreted as either MDY or DMY
+ambiguous_dates <- c("01/02/2023", "03/04/2023", "05/06/2023")
+
+# Default: Day-first (DMY) interpretation
+dmy_result <- fix_date_char(ambiguous_dates)
+print(dmy_result)
+#> [1] "2023-02-01" "2023-04-03" "2023-06-05"
+
+# Month-first (MDY) interpretation
+mdy_result <- fix_date_char(ambiguous_dates, format = "mdy")
+print(mdy_result)
+#> [1] "2023-01-02" "2023-03-04" "2023-05-06"
 ```
+
+### Missing Day/Month Imputation
+
+`datefixR` provides flexible control over how missing date components
+are imputed:
+
+``` r
+# Incomplete dates requiring imputation
+incomplete_dates <- c("2023", "05/2023", "2023-08", "march 2022")
+
+# Default imputation: missing month = July (07), missing day = 1st
+default_impute <- fix_date_char(incomplete_dates)
+print(default_impute)
+#> [1] "2023-07-01" "2023-05-01" "2023-08-01" "2022-03-01"
+
+# Custom imputation: missing month = January (01), missing day = 15th
+custom_impute <- fix_date_char(incomplete_dates,
+  month.impute = 1,
+  day.impute = 15
+)
+print(custom_impute)
+#> [1] "2023-01-15" "2023-05-15" "2023-08-15" "2022-03-15"
+
+# For data frames, apply the same logic
+incomplete_df <- data.frame(
+  id = 1:4,
+  dates = incomplete_dates
+)
+
+fixed_incomplete <- fix_date_df(incomplete_df, "dates",
+  month.impute = 12, # December
+  day.impute = 31
+) # Last day
+knitr::kable(fixed_incomplete)
+```
+
+| id | dates      |
+| -: | :--------- |
+|  1 | 2023-12-31 |
+|  2 | 2023-05-31 |
+|  3 | 2023-08-31 |
+|  4 | 2022-03-31 |
+
+This flexibility allows you to choose imputation strategies that make
+sense for your specific use case (e.g., fiscal year starts, survey
+periods, etc.).
+
+### Roman Numerals
+
+`datefixR` can handle Roman numerals being used to denote the month, a
+format sometimes used by Oracle Database:
+
+``` r
+# Roman numeral months
+roman_dates <- c(
+  "15.VII.2023", # July 15, 2023
+  "3.XII.1999", # December 3, 1999
+  "1.I.2000" # January 1, 2000
+)
+
+fix_date_char(roman_dates, roman.numeral = TRUE)
+#> [1] "2023-07-15" "1999-12-03" "2000-01-01"
+```
+
+Roman numeral support is experimental and has to be explicitly enabled
+via `roman.numeral = TRUE`.
+
+## Performance
+
+This package has recently been optimized for speed using Rust and is now
+over 300x faster than the largely pure R implementation used in previous
+versions. Moreover, a fastpath approach has been implemented for common
+date formats, further improving performance in most situations. Finally,
+`fix_date_df()` now supports parallelism over columns via the `cores`
+argument (or via the `'Ncpus'` global option). As such, speed is now
+very unlikely to be an issue when using `datefixR` on large datasets.
 
 ## Limitations
 
@@ -164,10 +324,6 @@ handle dates entered via free text web forms and it is much less common
 for both date and time to be reported together in this input method.
 However, if there is significant demand for support for datetime data in
 the future this may added.
-
-The package is written solely in R and seems fast enough for my current
-use cases (a few hundred rows). However, I may convert the core for loop
-to C++ in the future if speed becomes an issue.
 
 ## Similar packages to datefixR
 
@@ -208,18 +364,18 @@ which also attempts to convert dates to a consistent format (POSIXct).
 However `{anytime}` assumes year, month, and day have all been provided
 and does not permit imputation. Moreover, if a date cannot be parsed,
 then the date is converted to an NA object and no warning is raised-
-which may lead to issues later in the analysis.
+which may lead to issues in any downstream analyses.
 
 ### `parsedate`
 
 `parsedate::parse_date()` also attempts to solve the problem of handling
 arbitrary dates and parses dates into the `POSIXct` type. Unfortunately,
 `parse_date()` cannot handle years before 1970 – instead imputing the
-year using the current year without raising a warning.
+year as the current year without any warnings being raised.
 
 ``` r
 parsedate::parse_date("april 15 1969")
-#> [1] "2024-04-15 UTC"
+#> [1] "2025-04-15 UTC"
 ```
 
 Moreover, `parse_date()` assumes dates are in MDY format and does not
@@ -245,27 +401,23 @@ readr::parse_date("02/2010", "%m/%Y")
 However, these packages have support for weekdays and months in around
 211 locales whereas `datefixR` supports much fewer languages due to
 support for additional languages needing to be implemented individually
-by hand.
+and by hand.
 
-### Speed comparison
+**Trade-offs to consider:**
 
-These alternative packages all use compiled code and therefore have the
-potential to be orders of magnitude faster than `datefixR`. However, in
-my own testing, I found `{anytime}` to actually be slower than
-`datefixR`: consistently being over 3 times slower (testing up to 10,000
-dates). `lubridate::parse_date_time()` (which is written in R) is an
-order of magnitude of time faster than `datefixR` and
-`lubridate::parse_date_time2()`, which is written in C but only allows
-numeric dates, is even faster. If you are don’t mind not having control
-over imputation, do not expect to have to deal with many dates which
-fail to parse, are confident you will specify all potential formats the
-supplied dates will be in, and you have many many dates to standardize
-(hundreds of thousands or more), `{lubridate}`’s functions may be a
-better option than `datefixR`.
+  - **`datefixR`**: Better error reporting, flexible imputation, handles
+    mixed formats automatically. Fast.
+  - **`lubridate`**: Requires format specification, limited imputation
+    control  
+  - **`stringi`/`readr`/`clock`**: Require exact format specification,
+    supports 211 locales
+  - **`anytime`**: Variable performance, no imputation support, silent
+    failures
 
-If speed is an absolute priority and limited control over date parsing
-is acceptable, then `stringi`, `readr`, and `clock` are all excellent
-choices as they are around 10<sup>5</sup> times faster than `datefixR`.
+For messy, mixed-format data where usability and error handling are
+priorities, `datefixR` shines. Now that the core logic is handled in
+Rust, performance has improved significantly making it suitable for very
+large datasets.
 
 ## Contributing to datefixR
 
