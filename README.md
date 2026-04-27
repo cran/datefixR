@@ -327,6 +327,9 @@ the future this may added.
 
 ## Similar packages to datefixR
 
+Please note this section is not regularly updated and may be out-of-date
+by the the time you read it.
+
 ### `lubridate`
 
 [`lubridate::guess_formats()`](https://lubridate.tidyverse.org/reference/guess_formats.html)
@@ -360,11 +363,26 @@ is an excellent tool to use alongside `datefixR`.
 
 An alternative function is
 [`anytime::anydate()`](https://dirk.eddelbuettel.com/code/anytime.html)
-which also attempts to convert dates to a consistent format (POSIXct).
-However `{anytime}` assumes year, month, and day have all been provided
-and does not permit imputation. Moreover, if a date cannot be parsed,
-then the date is converted to an NA object and no warning is raised-
-which may lead to issues in any downstream analyses.
+which also attempts to convert dates to a consistent format (R’s
+`{Date}`). However, `anydate()` does not allow the user to control how
+missing days or months are imputed (defaulting to the 1st day/month) and
+assumes dates with missing components are in YMD format.
+
+``` r
+suppressWarnings(anytime::anydate("May 1994"))
+#> [1] NA
+anytime::anydate("1994 May")
+#> [1] "1994-05-01"
+```
+
+Two digit years are also not supported.
+
+``` r
+suppressWarnings(anytime::anydate("01/05/94"))
+#> [1] NA
+anytime::anydate("01/05/1994")
+#> [1] "1994-01-05"
+```
 
 ### `parsedate`
 
@@ -375,7 +393,7 @@ year as the current year without any warnings being raised.
 
 ``` r
 parsedate::parse_date("april 15 1969")
-#> [1] "2025-04-15 UTC"
+#> [1] "2026-04-15 UTC"
 ```
 
 Moreover, `parse_date()` assumes dates are in MDY format and does not

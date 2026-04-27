@@ -1,7 +1,7 @@
 [package]
 name = 'datefixR'
 publish = false
-version = '0.1.0'
+version = '0.1.1'
 edition = '2021'
 rust-version = '1.65'
 
@@ -10,7 +10,17 @@ crate-type = [ 'staticlib', 'rlib' ]
 name = 'datefixR'
 
 [dependencies]
-extendr-api = { version = "*", default-features = false, features = ["result_condition"] }
-regex = "1.5"
-chrono = "0.4"
-lazy_static = "1.4"
+extendr-api = { version = "0.9.0", default-features = false, features = ["result_condition"] }
+regex = "1.12.3"
+chrono = "0.4.44"
+lazy_static = "1.5"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = "symbols"
+panic = "abort"
+
+# Specific profile for WASM builds
+[profile.release.package."*"]
+opt-level = "s"

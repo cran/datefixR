@@ -1,6 +1,6 @@
 Package: datefixR
 Title: Standardize Dates in Different Formats or with Missing Data
-Version: 2.0.0
+Version: 2.0.1
 Maintainer: Nathan Constantine-Cooke <nathan.constantine-cooke@ed.ac.uk>
 Authors@R: c(
     person("Nathan", "Constantine-Cooke", , "nathan.constantine-cooke@ed.ac.uk", role = c("aut", "cre"),
@@ -36,20 +36,20 @@ URL: https://docs.ropensci.org/datefixR/,
 BugReports: https://github.com/ropensci/datefixR/issues
 Depends: R (>= 4.2)
 Imports: lifecycle, rlang
-Suggests: DT, future, future.apply, htmltools, knitr, parsedate,
-        pkgbuild, png, readr, readxl, rmarkdown, shiny, shinytest2,
-        spelling, testthat (>= 3.0.0), withr
+Suggests: anytime, DT, future, future.apply, htmltools, knitr,
+        parsedate, pkgbuild, png, readr, readxl, rmarkdown, shiny,
+        shinytest2, spelling, testthat (>= 3.0.0), withr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.3.2
-Config/rextendr/version: 0.4.1
-SystemRequirements: Cargo (Rust's package manager), rustc
+RoxygenNote: 7.3.3
+Config/rextendr/version: 0.5.0
+SystemRequirements: Cargo (Rust's package manager), rustc, xz
 NeedsCompilation: yes
-Packaged: 2025-08-22 10:32:39 UTC; nconsta2
+Packaged: 2026-04-27 13:44:59 UTC; nconsta2
 Author: Nathan Constantine-Cooke [aut, cre] (ORCID:
     <https://orcid.org/0000-0002-4437-8713>),
   Jonathan Kitt [ctb, trl],
@@ -67,4 +67,4 @@ Author: Nathan Constantine-Cooke [aut, cre] (ORCID:
   Chitra M. Saraswati [ctb, trl] (ORCID:
     <https://orcid.org/0000-0002-8159-0414>)
 Repository: CRAN
-Date/Publication: 2025-08-22 10:50:08 UTC
+Date/Publication: 2026-04-27 14:00:09 UTC
